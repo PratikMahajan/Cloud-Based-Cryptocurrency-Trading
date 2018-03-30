@@ -33,6 +33,9 @@ public class MainFrame extends javax.swing.JFrame {
         resetFields();
     }
 
+    
+    
+    
     public void resetFields() {
         usernameTF.setText("");
         passwordTF.setText("");

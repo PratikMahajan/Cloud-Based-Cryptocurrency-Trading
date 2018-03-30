@@ -27,6 +27,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     private Admin masterClass;
     
+    
+    
     public MainFrame() {
         initComponents();
         masterClass = ConfigreBusiness.intialize();

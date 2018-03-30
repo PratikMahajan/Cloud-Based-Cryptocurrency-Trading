@@ -10,6 +10,9 @@ import Business.Admin;
 import Business.Broker.Broker;
 import Business.ConfigreBusiness;
 import Business.Customer.Customer;
+import Interface.Admin.MainAdminPanel;
+import Interface.Broker.MainBrokerPanel;
+import Interface.Customer.MainCustomerPanel;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 
@@ -45,20 +48,16 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         Cards = new javax.swing.JPanel();
-        usernameTF = new javax.swing.JTextField();
-        passwordTF = new javax.swing.JTextField();
-        passwordLbl = new javax.swing.JLabel();
-        usernameLbl = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         loginBtn = new javax.swing.JButton();
+        passwordTF = new javax.swing.JTextField();
+        usernameTF = new javax.swing.JTextField();
+        usernameLbl = new javax.swing.JLabel();
+        passwordLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.CardLayout());
 
-        passwordLbl.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        passwordLbl.setText("Password");
-
-        usernameLbl.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        usernameLbl.setText("Username");
+        Cards.setLayout(new java.awt.CardLayout());
 
         loginBtn.setBackground(new java.awt.Color(0, 0, 0));
         loginBtn.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
@@ -70,68 +69,77 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout CardsLayout = new javax.swing.GroupLayout(Cards);
-        Cards.setLayout(CardsLayout);
-        CardsLayout.setHorizontalGroup(
-            CardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CardsLayout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
-                .addGroup(CardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CardsLayout.createSequentialGroup()
-                        .addGroup(CardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        usernameLbl.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        usernameLbl.setText("Username");
+
+        passwordLbl.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        passwordLbl.setText("Password");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(194, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usernameLbl)
                             .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(58, 58, 58)
-                        .addGroup(CardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(passwordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(usernameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(168, 168, 168))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CardsLayout.createSequentialGroup()
+                            .addComponent(usernameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(246, 246, 246))))
+                        .addGap(78, 78, 78)))
+                .addGap(164, 164, 164))
         );
-        CardsLayout.setVerticalGroup(
-            CardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CardsLayout.createSequentialGroup()
-                .addContainerGap(284, Short.MAX_VALUE)
-                .addGroup(CardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(283, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameLbl)
                     .addComponent(usernameTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addGroup(CardsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordLbl))
                 .addGap(18, 18, 18)
                 .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addGap(51, 51, 51))
         );
 
-        getContentPane().add(Cards, "card2");
+        Cards.add(jPanel1, "card2");
+
+        getContentPane().add(Cards, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        
         UserAccount ua = masterClass.getUserAccountDirectory().getUserAccount(usernameTF.getText());
         if (ua != null) {
             if (ua.getPassword().equals(passwordTF.getText())) {
                 String role = ua.getRole();
                 switch (role) {
                     case "admin": {
-//                        MainAdminPanel mainAdminPanel = new MainAdminPanel(Cards, masterClass);
-//                        Cards.add("MainAdminPanel", mainAdminPanel);
-//                        CardLayout cl = (CardLayout) Cards.getLayout();
-//                        cl.next(Cards);
-//                        break;
+                        MainAdminPanel mainAdminPanel = new MainAdminPanel(Cards, masterClass);
+                        Cards.add("MainAdminPanel", mainAdminPanel);
+                        CardLayout cl = (CardLayout) Cards.getLayout();
+                        cl.next(Cards);
+                        break;
                     }
 
                     case "broker": {
                         if (ua.getUserType() instanceof Broker) {
-//                            Retailer retailer = (Retailer) ua.getUserType();
-//                            MainRetailerPanel mainRetailerPanel = new MainRetailerPanel(Cards, retailer);
-//                            Cards.add("MainAdminPanel", mainRetailerPanel);
-//                            CardLayout cl = (CardLayout) Cards.getLayout();
-//                            cl.next(Cards);
+                            Broker broker = (Broker) ua.getUserType();
+                            MainBrokerPanel mainBrokerPanel = new MainBrokerPanel(Cards, broker);
+                            Cards.add("MainBrokerPanel", mainBrokerPanel);
+                            CardLayout cl = (CardLayout) Cards.getLayout();
+                            cl.next(Cards);
                         } else {
                             JOptionPane.showMessageDialog(null, "Incorrect User");
                         }
@@ -140,11 +148,11 @@ public class MainFrame extends javax.swing.JFrame {
 
                     case "customer": {
                         if (ua.getUserType() instanceof Customer) {
-//                            Customer customer = (Customer) ua.getUserType();
-//                            MainCustomerPanel mainCustomerPanel = new MainCustomerPanel(Cards, customer, masterClass);
-//                            Cards.add("MainAdminPanel", mainCustomerPanel);
-//                            CardLayout cl = (CardLayout) Cards.getLayout();
-//                            cl.next(Cards);
+                            Customer customer = (Customer) ua.getUserType();
+                            MainCustomerPanel mainCustomerPanel = new MainCustomerPanel(Cards, customer, masterClass);
+                            Cards.add("MainCustomerPanel", mainCustomerPanel);
+                            CardLayout cl = (CardLayout) Cards.getLayout();
+                            cl.next(Cards);
                         } else {
                             JOptionPane.showMessageDialog(null, "Incorrect User");
                         }
@@ -159,8 +167,21 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "User with username " + usernameTF.getText() + " not found!");
         }
+        
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_loginBtnActionPerformed
-
+                                        
+                              
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -198,6 +219,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cards;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBtn;
     private javax.swing.JLabel passwordLbl;
     private javax.swing.JTextField passwordTF;

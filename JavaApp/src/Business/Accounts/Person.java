@@ -10,6 +10,7 @@ package Business.Accounts;
  * @author karanracca
  */
 public class Person {
+    
     private String firstName;
     private String lastName;
 

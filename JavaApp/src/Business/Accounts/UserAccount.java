@@ -11,23 +11,23 @@ package Business.Accounts;
  */
 public class UserAccount {
     
-    public static String ADMIN_ROLE = "admin";
-    public static String BROKER_ROLE = "broker";
+    public static String ADMIN_ROLE    = "admin";
+    public static String BROKER_ROLE   = "broker";
     public static String CUSTOMER_ROLE = "customer";
     
     private static int count = 10000;
-    private int userID;
-    private String username;
-    private String password;
-    private String role;
-    private Object userType;
+    private int        userID;
+    private String     username;
+    private String     password;
+    private String     role;
+    private Object     userType;
     
     public UserAccount (String un, String pwd, String role, Object ut ) {
         this.username = un;
         this.password = pwd;
-        this.role = role;
+        this.role     = role;
         this.userType = ut;
-        userID = count++;
+        userID        = count++;
     }
 
     public String getUsername() {

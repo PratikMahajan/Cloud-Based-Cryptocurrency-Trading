@@ -19,6 +19,7 @@ public class ConfigreBusiness {
     public static Admin intialize() {
 
         Admin msc = Admin.getInstance();
+        
         //Adding Admin
         Person p = new Person();
         p.setFirstName("Admin");

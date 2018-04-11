@@ -23,15 +23,19 @@ public class RequestToBrokerJPanel extends javax.swing.JPanel {
     private JPanel      userProcessContainer;
     private Enterprise  enterprise;
     private UserAccount userAccount;
+    private int         bitcoinUnit;
+    private double      bitcoinPrice;
     /**
      * Creates new form RequestToBrokerJPanel
      */
-    public RequestToBrokerJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
+    public RequestToBrokerJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, int bitcoinUnit, double bitcoinPrice) {
         
         initComponents();        
         this.userProcessContainer = userProcessContainer;
         this.enterprise           = enterprise;
         this.userAccount          = account;
+        this.bitcoinPrice         = bitcoinPrice;
+        this.bitcoinUnit          = bitcoinUnit;
         valueLabel.setText(enterprise.getName());
     }
 
@@ -54,7 +58,7 @@ public class RequestToBrokerJPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        requestTestJButton.setText("Request Test");
+        requestTestJButton.setText("Request Test to Broker");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 requestTestJButtonActionPerformed(evt);
@@ -96,6 +100,8 @@ public class RequestToBrokerJPanel extends javax.swing.JPanel {
         request.setMessage(message);
         request.setSender(userAccount);
         request.setStatus("Sent");
+        request.setBitcoinPrice(bitcoinPrice);
+        request.setBitcoinUnit(bitcoinUnit);
         
         Organization org = null;
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){

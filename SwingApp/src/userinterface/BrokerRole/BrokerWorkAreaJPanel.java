@@ -48,13 +48,15 @@ public class BrokerWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         
         for(WorkRequest request : brokerOrganization.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[5];
+            Object[] row = new Object[8];
             row[0] = request.getRequestNumber();
             row[1] = request;   //object
             row[2] = request.getSender().getEmployee().getFirstName();
             row[3] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getFirstName();
             row[4] = request.getStatus();
-            
+            row[5] = request.getBitcoinUnit();
+            row[6] = request.getBitcoinPrice();
+            row[7] = request.getBitcoinUnit() * request.getBitcoinPrice();
             model.addRow(row);
         }
     }
@@ -79,20 +81,20 @@ public class BrokerWorkAreaJPanel extends javax.swing.JPanel {
 
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Request Number", "Message", "Sender", "Receiver", "Status"
+                "Request Number", "Message", "Sender", "Receiver", "Status", "BitCoin Unit", "BitCoin Price", "Total Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true, true, false
+                true, false, true, true, false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -111,7 +113,7 @@ public class BrokerWorkAreaJPanel extends javax.swing.JPanel {
             workRequestJTable.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 560, 96));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 870, 96));
 
         assignJButton.setText("Assign to me");
         assignJButton.addActionListener(new java.awt.event.ActionListener() {

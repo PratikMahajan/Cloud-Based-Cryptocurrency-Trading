@@ -20,13 +20,14 @@ public class ConfigreBusiness {
 
         Admin msc = Admin.getInstance();
         
-        //Adding Admin
+        //Adding Admin - on Stock side
         Person p = new Person();
         p.setFirstName("Admin");
         p.setLastName("Admin");
         UserAccount ua = new UserAccount("admin", "admin", UserAccount.ADMIN_ROLE, p);
         msc.getUserAccountDirectory().addUserAccount(ua);
         
+        //Adding customer - on Stock side
         Customer per = new Customer("08-21-1995", "Tom","02115");
         msc.getCustomerCatalogue().addCustomer(per);
         UserAccount uac = new UserAccount("cust", "cust", UserAccount.CUSTOMER_ROLE, per);

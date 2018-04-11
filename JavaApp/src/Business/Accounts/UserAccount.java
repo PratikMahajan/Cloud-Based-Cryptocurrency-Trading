@@ -5,6 +5,8 @@
  */
 package Business.Accounts;
 
+import Business.WorkQueue.WorkQueue;
+
 /**
  *
  * @author karanracca
@@ -21,6 +23,11 @@ public class UserAccount {
     private String     password;
     private String     role;
     private Object     userType;
+    private WorkQueue  workQueue;
+
+    public UserAccount() {
+        workQueue = new WorkQueue();
+    }
     
     public UserAccount (String un, String pwd, String role, Object ut ) {
         this.username = un;
@@ -65,6 +72,12 @@ public class UserAccount {
     public int getUserID() {
         return userID;
     }
-    
-    
+
+    public WorkQueue getWorkQueue() {
+        return workQueue;
+    }
+
+    public void setWorkQueue(WorkQueue workQueue) {
+        this.workQueue = workQueue;
+    }
 }

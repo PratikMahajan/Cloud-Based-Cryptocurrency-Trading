@@ -15,15 +15,15 @@ import Business.Customer.CustomerCatalogue;
  */
 public class Admin {
     
-    public static Admin masterClass;
-    private BrokerCatalogue brokerCatalogue;
-    private CustomerCatalogue customerCatalogue;
+    public static Admin          masterClass;
+    private BrokerCatalogue      brokerCatalogue;
+    private CustomerCatalogue    customerCatalogue;
     private UserAccountDirectory userAccountDirectory;
     
     private Admin()
     {
-        this.brokerCatalogue=new BrokerCatalogue();
-        this.customerCatalogue=new CustomerCatalogue();
+        this.brokerCatalogue      = new BrokerCatalogue();
+        this.customerCatalogue    = new CustomerCatalogue();
         this.userAccountDirectory = new UserAccountDirectory();
     }
     

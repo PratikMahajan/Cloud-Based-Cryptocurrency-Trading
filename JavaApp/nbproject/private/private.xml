@@ -3,10 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/mahajan/Projects/AED/FinalProject/StockTradingProject/src/Business/ConfigreBusiness.java</file>
-            <file>file:/Users/mahajan/Projects/AED/FinalProject/StockTradingProject/src/Interface/Admin/MainAdminPanel.java</file>
-            <file>file:/Users/mahajan/Projects/AED/FinalProject/StockTradingProject/src/Interface/Customer/MainCustomerPanel.java</file>
-            <file>file:/Users/mahajan/Projects/AED/FinalProject/StockTradingProject/src/Interface/Broker/MainBrokerPanel.java</file>
+            <file>file:/Users/mahajan/Projects/AED/FinalProject/StockTradingProject/JavaApp/src/Business/Customer/Customer.java</file>
         </group>
     </open-files>
 </project-private>

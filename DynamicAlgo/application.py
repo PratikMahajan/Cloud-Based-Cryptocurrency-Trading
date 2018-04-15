@@ -13,9 +13,9 @@ import oauth2 as oauth
 import logging
 import urllib2 as urllib
 
-DATABASE = "demp.db"
-app = Flask(__name__)
 
+app = Flask(__name__)
+DATABASE = "demp.db"
 priceIndex=400.000
 
 # ------------------------------------------
@@ -41,56 +41,59 @@ if not os.path.exists(DATABASE):
 # twitter api connection
 # ------------------------------------------------------------------------------------------------------
 
-# twitter application credentials
-consumer_key = apikeys.consumer_key
-consumer_secret = apikeys.consumer_secret
-access_token_key = apikeys.access_token_key
-access_token_secret = apikeys.access_token_secret
-# credentials end
+class twitter:
+    # twitter application credentials
+    consumer_key = apikeys.consumer_key
+    consumer_secret = apikeys.consumer_secret
+    access_token_key = apikeys.access_token_key
+    access_token_secret = apikeys.access_token_secret
+    # credentials end
 
-#  default http_header to be passes is NONE and post_body is a blank string
+    #  default http_header to be passes is NONE and post_body is a blank string
 
-_debug = 0
+    _debug = 0
 
-oauth_token    = oauth.Token(key=access_token_key, secret=access_token_secret)
-oauth_consumer = oauth.Consumer(key=consumer_key, secret=consumer_secret)
+    oauth_token    = oauth.Token(key=access_token_key, secret=access_token_secret)
+    oauth_consumer = oauth.Consumer(key=consumer_key, secret=consumer_secret)
 
-signature_method_hmac_sha1 = oauth.SignatureMethod_HMAC_SHA1()
+    signature_method_hmac_sha1 = oauth.SignatureMethod_HMAC_SHA1()
 
-http_method = "GET"
-
-
-http_handler  = urllib.HTTPHandler(debuglevel=_debug)
-https_handler = urllib.HTTPSHandler(debuglevel=_debug)
+    http_method = "GET"
 
 
-# Construct, sign, and open a twitter request
-# using the hard-coded credentials above.
+    http_handler  = urllib.HTTPHandler(debuglevel=_debug)
+    https_handler = urllib.HTTPSHandler(debuglevel=_debug)
 
-def twitterreq(url, method, parameters):
-    req = oauth.Request.from_consumer_and_token(oauth_consumer,
-                                                token=oauth_token,
-                                                http_method=http_method,
-                                                http_url=url,
-                                                parameters=parameters)
+    # def __init__(self):
+    #     print "yo"
 
-    req.sign_request(signature_method_hmac_sha1, oauth_consumer, oauth_token)
+    # Construct, sign, and open a twitter request
+    # using the hard-coded credentials above.
 
-    headers = req.to_header()
+    def twitterreq(self,url, method, parameters):
+        req = oauth.Request.from_consumer_and_token(twitter.oauth_consumer,
+                                                    token=twitter.oauth_token,
+                                                    http_method=twitter.http_method,
+                                                    http_url=url,
+                                                    parameters=parameters)
 
-    if http_method == "POST":
-        encoded_post_data = req.to_postdata()
-    else:
-        encoded_post_data = None
-        url = req.to_url()
+        req.sign_request(twitter.signature_method_hmac_sha1, twitter.oauth_consumer, twitter.oauth_token)
 
-    opener = urllib.OpenerDirector()
-    opener.add_handler(http_handler)
-    opener.add_handler(https_handler)
+        headers = req.to_header()
 
-    response = opener.open(url, encoded_post_data)
+        if twitter.http_method == "POST":
+            encoded_post_data = req.to_postdata()
+        else:
+            encoded_post_data = None
+            url = req.to_url()
 
-    return response
+        opener = urllib.OpenerDirector()
+        opener.add_handler(twitter.http_handler)
+        opener.add_handler(twitter.https_handler)
+
+        response = opener.open(url, encoded_post_data)
+
+        return response
 
 
 
@@ -110,9 +113,10 @@ sentiment=0
 def getTwitterSentiments():
     logging.debug('Starting')
     global sentiment
+    twit_req=twitter()
     url = "https://stream.twitter.com/1.1/statuses/filter.json?track=bitcoin"
     parameters = []
-    response = twitterreq(url, "GET", parameters)
+    response = twit_req.twitterreq(url, "GET", parameters)
     for line in response:
         try:
             twit_content=json.loads(line)["text"]
@@ -122,6 +126,8 @@ def getTwitterSentiments():
             time.sleep(1)
         except ValueError:
             logging.debug("ValueErrorCaught")
+            del twit_req
+            getTwitterSentiments()
     logging.debug('sentiment crashed')
 # ------------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------------
@@ -129,30 +135,37 @@ def getTwitterSentiments():
 
 
 # a matcher thread which matches transactions after a fixed interval of time
-def buy_sell_match(a):
+def buy_sell_match():
     logging.debug('Matcher Started')
-    while True:
-        try:
-            cur = get_db().cursor()
-            cur2=get_db().cursor()
-            cur3=get_db().cursor()
-            res = cur.execute("Select bc.recv_address, sc.sender_address, sc.quantity, bc.price, sc.price from sell_coins as sc inner join buy_coins as bc where sc.quantity=bc.quantity")
-            for row in res:
-                if(abs(float(row[4])-float(row[5]))<0.5):
-                    cur2.execute("Insert into matched_txn values(?,?,?,?)",(row[1],row[0],row[2], row[4]))
-                    cur2.execute("Delete from buy_coins where recv_address=? AND quantity=? AND price=?",(row[0],row[2],row[3]))
-                    cur2.execute("Delete from sell_coins where sender_address=? AND quantity=? AND price=?",(row[1],row[2],row[4]))
-                    get_db().commit()
-            time.sleep(60)
-        except:
-            logging.debug('Exception in Matcher')
+    with app.app_context():
+        time.sleep(60)
+        while True:
+            try:
+                cur = get_db().cursor()
+                cur2=get_db().cursor()
+                res = cur.execute("Select bc.recv_address, sc.sender_address, sc.quantity, bc.price, sc.price from sell_coins as sc inner join buy_coins as bc where sc.quantity=bc.quantity")
+                for row in res:
+                    if(abs(float(row[3])-float(row[4]))<0.5):
+                        cur2.execute("Insert into matched_txn values(?,?,?,?)",(row[1],row[0],row[2], row[4]))
+                        cur2.execute("Delete from buy_coins where recv_address=? AND quantity=? AND price=?",(row[0],row[2],row[3]))
+                        cur2.execute("Delete from sell_coins where sender_address=? AND quantity=? AND price=?",(row[1],row[2],row[4]))
+                        get_db().commit()
+            except Exception as e:
+                logging.debug('Exception in Matcher'+str(e))
+                exit()
     logging.debug('Matcher Crashed')
+
+
+
 
 #Start sentiment thread in background in python
 try:
     gts= threading.Thread(name="sentiments", target= getTwitterSentiments)
     gts.setDaemon(True)
     gts.start()
+    bsm = threading.Thread(name="BuySellMatch", target=buy_sell_match)
+    bsm.setDaemon(True)
+    bsm.start()
     # thread.start_new_thread( getTwitterSentiments, ("Start",) )
     # thread.start_new_thread(buy_sell_match(), ("Start",))
 except:
@@ -222,35 +235,42 @@ def sell_coins():
 # endpoint asked by buyer for a match
 # will ask every 10 seconds for request
 # after 10 min will expire-->set this in java to delete
-@app.route("/buymatched", methods=["GET"])
+@app.route("/buymatched", methods=["POST"])
 def sell_match():
     try:
         recv_address = request.json['address']
         cur = get_db().cursor()
-        res = cur.execute("Select sender_address, quantity, price from matched_txn where recv_address=?",(recv_address)).fetchone()
-        items=[]
-        items.append({'send_to': res[0]})
-        items.append({'quantity': res[1]})
-        items.append({'price': res[2]})
-        return Response(json.dumps(items), status=200, mimetype='application/json')
-    except:
-        return Response(status=510)
+        res = cur.execute("Select sender_address, quantity, price from matched_txn where recv_address=? Limit 1",(recv_address, ))
+        for row in res:
+            items = {}
+            items['recv_from'] = str(row[0])
+            items['quantity'] = int(row[1])
+            items['price'] = str(row[2])
+            return Response(json.dumps(items), status=200, mimetype='application/json')
+        return Response(status=550)
+    except Exception as e:
+        print e
+        return Response(status=590)
 
 
 # endpoint asked by a seller for a match
 # will ask every 10 seconds for request
 # after 10 min will expire---->set this in java to delete
-@app.route("/sellmatched", methods=["GET"])
+@app.route("/sellmatched", methods=["POST"])
 def buy_match():
     try:
         sender_address = request.json['address']
         cur = get_db().cursor()
-        res = cur.execute("Select recv_address, quantity, price from matched_txn where sender_address=?", (sender_address)).fetchone()
-        items = []
-        items.append({'recv_from': res[0]})
-        items.append({'quantity': res[1]})
-        items.append({'price': res[2]})
-        return Response(json.dumps(items), status=200, mimetype='application/json')
+        res = cur.execute("Select recv_address, quantity, price from matched_txn where sender_address=? limit 1", (sender_address, ))
+        for row in res:
+            # logging.debug(row)
+            items = {}
+            items['send_to'] = str(row[0])
+            items['quantity'] = int(row[1])
+            items['price'] = str(row[2])
+            return Response(json.dumps(items), status=200, mimetype='application/json')
+
+        return Response(status=550)
     except:
         return Response(status=510)
 
@@ -267,7 +287,10 @@ def sendDynamicPrice():
         cur = get_db().cursor()
         items_buy=cur.execute("Select count(*) from buy_coins;").fetchone()[0]
         items_sell=cur.execute("Select count(*) from sell_coins;").fetchone()[0]
-        ratio=float(items_buy)/float(items_sell)
+        if(items_sell!=0 and items_sell!=0):
+            ratio=float(items_buy)/float(items_sell)
+        else:
+            ratio=1.000
         multiplier= float(sentiment)*float(ratio)
         if(multiplier>prevMultiplier):
             polar=1

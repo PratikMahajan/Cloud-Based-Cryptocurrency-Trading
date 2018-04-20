@@ -21,6 +21,8 @@ public abstract class WorkRequest {
     private String      status;
     private Date        requestDate;
     private Date        resolveDate;
+    private int         bitcoinUnit;
+    private double      bitcoinPrice;
     
     public WorkRequest(){
         requestDate   = new Date();
@@ -82,4 +84,21 @@ public abstract class WorkRequest {
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
     }
+
+    public int getBitcoinUnit() {
+        return bitcoinUnit;
+    }
+
+    public void setBitcoinUnit(int bitcoinUnit) {
+        this.bitcoinUnit = bitcoinUnit;
+    }
+
+    public double getBitcoinPrice() {
+        return bitcoinPrice;
+    }
+
+    public void setBitcoinPrice(double bitcoinPrice) {
+        this.bitcoinPrice = bitcoinPrice;
+    }
+   
 }

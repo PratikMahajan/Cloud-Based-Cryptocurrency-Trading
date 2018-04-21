@@ -11,6 +11,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import userinterface.CustomerRole.CustomerWorkAreaJPanel;
 import javax.swing.JPanel;
+import userinterface.CustomerRole.CustomerMainPanel;
 
 /**
  *
@@ -20,7 +21,8 @@ public class CustomerRole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-        return new CustomerWorkAreaJPanel(userProcessContainer, account, (CustomerOrganization)organization, enterprise);
+        //return new CustomerWorkAreaJPanel(userProcessContainer, account, (CustomerOrganization)organization, enterprise);
+        return new CustomerMainPanel(userProcessContainer, account, (CustomerOrganization)organization, enterprise);
         //return new CustomerWorkAreaJPanel(userProcessContainer, account, (CustomerOrganization)organization, enterprise);
     }
     

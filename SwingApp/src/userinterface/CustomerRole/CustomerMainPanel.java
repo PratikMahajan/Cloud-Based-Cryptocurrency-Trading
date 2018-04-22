@@ -9,6 +9,7 @@ package userinterface.CustomerRole;
 import Business.Enterprise.Enterprise;
 import Business.Organization.CustomerOrganization;
 import Business.Role.AddMoney;
+import Business.Role.SellCoins;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BrokerWorkRequest;
 import Business.WorkQueue.WorkRequest;
@@ -128,6 +129,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         btnAddMoney = new javax.swing.JButton();
         btnBuyCoins = new javax.swing.JButton();
         lblPplSaying = new javax.swing.JLabel();
+        btnSellCoins = new javax.swing.JButton();
 
         DummyDel.setText("DummyDel");
         DummyDel.addActionListener(new java.awt.event.ActionListener() {
@@ -205,6 +207,13 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         lblPplSaying.setText("What are People Saying ");
         lblPplSaying.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnSellCoins.setText("Sell Coins");
+        btnSellCoins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSellCoinsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -243,7 +252,8 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                                             .addComponent(lblChangeName, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                                             .addComponent(lblChangeData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addComponent(btnBuyCoins, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblCoinIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblCoinIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSellCoins, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 2, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
@@ -277,7 +287,9 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                 .addComponent(btnAddMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnBuyCoins, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSellCoins, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
                 .addComponent(DummyDel))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -314,12 +326,31 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnBuyCoinsActionPerformed
 
+    private void btnSellCoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellCoinsActionPerformed
+        // TODO add your handling code here:
+        SellCoins cm=null;
+        try {
+            cm = new SellCoins(userProcessContainer, userAccount, organization, enterprise);
+        } catch (IOException ex) {
+            Logger.getLogger(CustomerMainPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(CustomerMainPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        userProcessContainer.add("Sell Coins",cm);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        
+        
+        
+    }//GEN-LAST:event_btnSellCoinsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DummyDel;
     private javax.swing.JLabel LblName;
     private javax.swing.JButton btnAddMoney;
     private javax.swing.JButton btnBuyCoins;
+    private javax.swing.JButton btnSellCoins;
     private javax.swing.JLabel lblChangeData;
     private javax.swing.JLabel lblChangeName;
     private javax.swing.JLabel lblCoinData;

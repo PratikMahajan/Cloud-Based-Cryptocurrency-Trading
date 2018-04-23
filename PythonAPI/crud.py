@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 i=1
 
-
+#for file uploads
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -34,7 +34,8 @@ def chaluRahuDet(a):
         time.sleep(1)
 
 try:
-   thread.start_new_thread( chaluRahuDet, ("ppp",) )
+    print "lolwa"
+    thread.start_new_thread( chaluRahuDet, ("ppp",) )
 except:
    print "Error: unable to start thread"
 
@@ -53,7 +54,7 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-# Initialize Dayabase from python shell for the 1st time
+# Initialize Database from python shell for the 1st time
 # >>> from yourapplication import init_db
 # >>> init_db()
 def init_db():

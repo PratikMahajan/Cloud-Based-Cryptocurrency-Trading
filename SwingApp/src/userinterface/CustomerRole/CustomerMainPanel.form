@@ -31,9 +31,8 @@
                               <Component id="DummyDel" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="297" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnAddMoney" alignment="1" min="-2" pref="201" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="lblCoinName" min="-2" pref="100" max="-2" attributes="0"/>
@@ -46,22 +45,31 @@
                                       </Group>
                                   </Group>
                                   <Component id="lblInvestmentName" alignment="1" min="-2" pref="201" max="-2" attributes="0"/>
+                                  <Component id="btnAddMoney" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblCoinIndex" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnBuyCoins" min="-2" pref="201" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblPriceData" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <Component id="lblPriceName" min="-2" pref="100" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="lblChangeName" pref="95" max="32767" attributes="0"/>
-                                          <Component id="lblChangeData" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lblPriceData" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <Component id="lblPriceName" min="-2" pref="100" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="lblChangeName" pref="95" max="32767" attributes="0"/>
+                                                  <Component id="lblChangeData" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="btnSellCoins" alignment="1" min="-2" pref="201" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="btnBuyCoins" alignment="1" min="-2" pref="201" max="-2" attributes="0"/>
-                                  <Component id="lblCoinIndex" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
-                                  <Component id="btnSellCoins" alignment="1" min="-2" pref="201" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -75,39 +83,45 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="LblName" min="-2" pref="51" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="lblPplSaying" pref="27" max="32767" attributes="0"/>
-                  <Component id="lblCoinIndex" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="lblPplSaying" min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblPriceName" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="lblChangeName" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblPriceData" pref="25" max="32767" attributes="0"/>
+                          <Component id="lblChangeData" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblInvestmentName" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="lblCoinIndex" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblDollarsName" max="32767" attributes="0"/>
+                          <Component id="lblDollarData" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblCoinName" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblCoinData" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="lblPriceName" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="lblChangeName" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnAddMoney" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="btnBuyCoins" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="lblPriceData" pref="25" max="32767" attributes="0"/>
-                  <Component id="lblChangeData" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="lblInvestmentName" min="-2" pref="27" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="lblDollarsName" pref="25" max="32767" attributes="0"/>
-                  <Component id="lblDollarData" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="lblCoinName" alignment="0" max="32767" attributes="0"/>
-                  <Component id="lblCoinData" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-              <Component id="btnAddMoney" min="-2" pref="39" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="btnBuyCoins" min="-2" pref="40" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnSellCoins" min="-2" pref="40" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+              <EmptySpace pref="257" max="32767" attributes="0"/>
               <Component id="DummyDel" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>

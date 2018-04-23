@@ -111,24 +111,29 @@ def clean_tweet(tweet):
 sentiment=0
 # Defining a background function which will run in thread to take and monotoe tweets in realtime
 def getTwitterSentiments():
-    logging.debug('Starting')
-    global sentiment
-    twit_req=twitter()
-    url = "https://stream.twitter.com/1.1/statuses/filter.json?track=bitcoin"
-    parameters = []
-    response = twit_req.twitterreq(url, "GET", parameters)
-    for line in response:
-        try:
-            twit_content=json.loads(line)["text"]
-            analysis = TextBlob(clean_tweet(twit_content))
-            sentiment+=analysis.sentiment.polarity
-            # print sentiment
-            time.sleep(1)
-        except ValueError:
-            logging.debug("ValueErrorCaught")
-            del twit_req
-            getTwitterSentiments()
-    logging.debug('sentiment crashed')
+    try:
+        logging.debug('Starting')
+        global sentiment
+        twit_req=twitter()
+        url = "https://stream.twitter.com/1.1/statuses/filter.json?track=bitcoin"
+        parameters = []
+        response = twit_req.twitterreq(url, "GET", parameters)
+        for line in response:
+            try:
+                twit_content=json.loads(line)["text"]
+                analysis = TextBlob(clean_tweet(twit_content))
+                sentiment+=analysis.sentiment.polarity
+                # print sentiment
+                time.sleep(1)
+            except ValueError:
+                logging.debug("ValueErrorCaught")
+                del twit_req
+                getTwitterSentiments()
+        logging.debug('sentiment crashed')
+    except Exception as e:
+        del twit_req
+        getTwitterSentiments()
+
 # ------------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------------
 
@@ -207,6 +212,8 @@ def receive_coins():
         recv_address = request.json['address']
         quantity = request.json['quantity']
         amount= request.json['amount']
+        # print recv_address
+        # print quantity
         cur=get_db().cursor()
         res= cur.execute("INSERT into buy_coins values(?,?,?)",(recv_address,int(quantity),amount))
         get_db().commit()

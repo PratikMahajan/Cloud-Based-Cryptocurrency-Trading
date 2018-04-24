@@ -129,7 +129,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
-              <EmptySpace pref="198" max="32767" attributes="0"/>
+              <EmptySpace pref="312" max="32767" attributes="0"/>
               <Component id="DummyDel" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -284,6 +284,7 @@
     <Component class="javax.swing.JButton" name="btnAddMoney">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Money"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddMoneyActionPerformed"/>
@@ -292,6 +293,7 @@
     <Component class="javax.swing.JButton" name="btnBuyCoins">
       <Properties>
         <Property name="text" type="java.lang.String" value="Buy Coins"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuyCoinsActionPerformed"/>

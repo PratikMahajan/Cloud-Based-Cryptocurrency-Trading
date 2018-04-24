@@ -9,8 +9,6 @@ package userinterface.CustomerRole;
 import Business.Enterprise.Enterprise;
 import Business.Organization.CustomerOrganization;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.BrokerWorkRequest;
-import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,8 +19,6 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,6 +48,11 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         
         getPrice();
         
+        //enable buy and sell button only for verified user
+        if(userAccount.getEmployee().isVerifiedUser()){
+            btnAddMoney.setEnabled(true);
+            btnBuyCoins.setEnabled(true);
+        }
     }
 
     
@@ -189,6 +190,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         lblDollarData.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnAddMoney.setText("Add Money");
+        btnAddMoney.setEnabled(false);
         btnAddMoney.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddMoneyActionPerformed(evt);
@@ -196,6 +198,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         });
 
         btnBuyCoins.setText("Buy Coins");
+        btnBuyCoins.setEnabled(false);
         btnBuyCoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuyCoinsActionPerformed(evt);
@@ -317,7 +320,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                     .addComponent(btnSellCoins1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
                 .addComponent(DummyDel))
         );
     }// </editor-fold>//GEN-END:initComponents

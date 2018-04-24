@@ -7,17 +7,17 @@ package Business.Role;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
+import Business.Organization.DocumentVerificationOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import userinterface.BrokerRole.BrokerWorkAreaJPanel;
 import javax.swing.JPanel;
+import userinterface.DocumentVerificationRole.DocumentVerificationWorkAreaJPanel;
 
 
 public class DocumentVerificationRole extends Role {
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-        return new BrokerWorkAreaJPanel(userProcessContainer, account, organization, business);
-        //return new DocumentVerificationWorkAreaJPanel(userProcessContainer, account, (DocumentVerificationOrganization)organization, enterprise);
+        return new DocumentVerificationWorkAreaJPanel(userProcessContainer, account, (DocumentVerificationOrganization)organization, enterprise);
     }    
 }

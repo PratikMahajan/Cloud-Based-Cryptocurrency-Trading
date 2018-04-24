@@ -14,6 +14,7 @@ public class Employee {
     private String     lastName;
     private int        id;
     private static int count = 1;
+    private boolean    verifiedUser = false;
 
     public Employee() {
         id = count;
@@ -38,6 +39,14 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public boolean isVerifiedUser() {
+        return verifiedUser;
+    }
+
+    public void setVerifiedUser(boolean verifiedUser) {
+        this.verifiedUser = verifiedUser;
     }
 
     @Override

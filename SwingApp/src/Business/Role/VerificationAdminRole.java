@@ -9,8 +9,8 @@ import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import userinterface.StockExchangeAdminRole.StockExchangeAdminWorkAreaJPanel;
 import javax.swing.JPanel;
+import userinterface.verificationAdminRole.VerificationAdminWorkAreaJPanel;
 
 /**
  *
@@ -20,7 +20,6 @@ public class VerificationAdminRole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-        return new StockExchangeAdminWorkAreaJPanel(userProcessContainer, enterprise);
-        //return new VerificationAdminWorkAreaJPanel(userProcessContainer, enterprise);
+        return new VerificationAdminWorkAreaJPanel(userProcessContainer, enterprise);
     }  
 }  

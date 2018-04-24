@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.StockExchangeAdminRole;
+package userinterface.verificationAdminRole;
 
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
@@ -18,15 +18,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Ankit
  */
-public class ManageUserAccountJPanel extends javax.swing.JPanel {
+public class ManageUserAccountJPanel_Verification extends javax.swing.JPanel {
 
     /**
-     * Creates new form ManageUserAccountJPanel
+     * Creates new form ManageUserAccountJPanel_Verification
      */
     private JPanel container;
     private Enterprise enterprise;
 
-    public ManageUserAccountJPanel(JPanel container, Enterprise enterprise) {
+    public ManageUserAccountJPanel_Verification(JPanel container, Enterprise enterprise) {
         
         initComponents();
         this.enterprise = enterprise;
@@ -179,7 +179,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         roleJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel6.setText("Stock Exchange Adminstrative Role: Manage User Accounts");
+        jLabel6.setText("Verification Adminstrative Role: Manage User Accounts");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -215,13 +215,13 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(createUserJButton)
                                         .addGap(44, 44, 44)
-                                        .addComponent(backjButton1)))))
-                        .addContainerGap(510, Short.MAX_VALUE))
+                                        .addComponent(backjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 84, Short.MAX_VALUE))))
+                        .addGap(0, 137, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

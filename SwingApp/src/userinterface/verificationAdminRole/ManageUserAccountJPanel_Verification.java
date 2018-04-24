@@ -14,10 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Ankit
- */
+
 public class ManageUserAccountJPanel_Verification extends javax.swing.JPanel {
 
     /**

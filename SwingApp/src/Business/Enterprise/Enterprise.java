@@ -8,10 +8,7 @@ package Business.Enterprise;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 
-/**
- *
- * @author Ankit
- */
+
 public abstract class Enterprise extends Organization{
     
     private EnterpriseType        enterpriseType;

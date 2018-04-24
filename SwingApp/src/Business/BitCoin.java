@@ -5,10 +5,7 @@
  */
 package Business;
 
-/**
- *
- * @author Ankit
- */
+
 public class BitCoin {
     
     private static int unit = 100;

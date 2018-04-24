@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserInterface.SystemAdminWorkArea;
+package userinterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
 import Business.Employee.Employee;
@@ -16,10 +16,7 @@ import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Ankit
- */
+
 public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;

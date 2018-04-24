@@ -11,10 +11,7 @@ import Business.UserAccount.UserAccount;
 import userinterface.BrokerRole.BrokerWorkAreaJPanel;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Ankit
- */
+
 public class BrokerRole extends Role {
 
     @Override

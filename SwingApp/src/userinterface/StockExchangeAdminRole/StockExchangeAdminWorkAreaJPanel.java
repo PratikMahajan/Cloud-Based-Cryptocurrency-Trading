@@ -10,10 +10,7 @@ import Business.Enterprise.Enterprise;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Ankit
- */
+
 public class StockExchangeAdminWorkAreaJPanel extends javax.swing.JPanel {
     
     private JPanel     userProcessContainer;

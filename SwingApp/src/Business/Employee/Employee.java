@@ -4,10 +4,7 @@
  */
 package Business.Employee;
 
-/**
- *
- * @author Ankit
- */
+
 public class Employee {
     
     private String     firstName;
@@ -15,10 +12,19 @@ public class Employee {
     private int        id;
     private static int count = 1;
     private boolean    verifiedUser = false;
+    private String     usraddress;
 
     public Employee() {
         id = count;
         count++;
+    }
+
+    public String getUsraddress() {
+        return usraddress;
+    }
+
+    public void setUsraddress(String usraddress) {
+        this.usraddress = usraddress;
     }
 
     public int getId() {

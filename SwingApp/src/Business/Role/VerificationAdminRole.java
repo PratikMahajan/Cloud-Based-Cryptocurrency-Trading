@@ -12,10 +12,7 @@ import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
 import userinterface.verificationAdminRole.VerificationAdminWorkAreaJPanel;
 
-/**
- *
- * @author kalsara.a
- */
+
 public class VerificationAdminRole extends Role{
 
     @Override

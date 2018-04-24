@@ -12,10 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Ankit
- */
+
 public class ManageEmployeeJPanel_Verification extends javax.swing.JPanel {
 
     private OrganizationDirectory organizationDir;

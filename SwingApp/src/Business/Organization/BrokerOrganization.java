@@ -8,10 +8,7 @@ import Business.Role.BrokerRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
-/**
- *
-* @author Ankit
- */
+
 public class BrokerOrganization extends Organization{
 
     public BrokerOrganization() {

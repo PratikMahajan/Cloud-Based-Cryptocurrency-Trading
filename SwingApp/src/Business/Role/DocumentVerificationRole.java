@@ -12,10 +12,7 @@ import Business.UserAccount.UserAccount;
 import userinterface.BrokerRole.BrokerWorkAreaJPanel;
 import javax.swing.JPanel;
 
-/**
- *
- * @author kalsara.a
- */
+
 public class DocumentVerificationRole extends Role {
 
     @Override

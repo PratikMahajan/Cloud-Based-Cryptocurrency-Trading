@@ -10,10 +10,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Ankit
- */
+
 public class TransactionsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form TransactionsJPanel

@@ -3,19 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserInterface.SystemAdminWorkArea;
+package userinterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
-import UserInterface.SystemAdminWorkArea.ManageNetworkJPanel;
-import UserInterface.SystemAdminWorkArea.ManageEnterpriseJPanel;
-import UserInterface.SystemAdminWorkArea.ManageEnterpriseAdminJPanel;
+import userinterface.SystemAdminWorkArea.ManageNetworkJPanel;
+import userinterface.SystemAdminWorkArea.ManageEnterpriseJPanel;
+import userinterface.SystemAdminWorkArea.ManageEnterpriseAdminJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Ankit
- */
+
 public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     /**

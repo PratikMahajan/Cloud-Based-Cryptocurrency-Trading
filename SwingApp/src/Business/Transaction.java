@@ -7,10 +7,7 @@ package Business;
 
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 
-/**
- *
- * @author Ankit
- */
+
 public class Transaction {
     private static int count = 1;
     private int transactionId;

@@ -8,10 +8,7 @@ import Business.Role.CustomerRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
-/**
- *
- * @author Ankit
- */
+
 public class CustomerOrganization extends Organization{
 
     

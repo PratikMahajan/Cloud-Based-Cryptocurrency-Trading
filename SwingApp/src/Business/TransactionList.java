@@ -7,10 +7,7 @@ package Business;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Ankit
- */
+
 public class TransactionList {
     
     private ArrayList<Transaction> transactionList;

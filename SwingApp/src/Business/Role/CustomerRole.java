@@ -17,10 +17,7 @@ import javax.swing.JPanel;
 import org.json.JSONException;
 import userinterface.CustomerRole.CustomerMainPanel;
 
-/**
- *
- * @author Ankit
- */
+
 public class CustomerRole extends Role{
 
     @Override

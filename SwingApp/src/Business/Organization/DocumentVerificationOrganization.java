@@ -9,10 +9,7 @@ import Business.Role.DocumentVerificationRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
-/**
- *
- * @author kalsara.a
- */
+
 public class DocumentVerificationOrganization extends Organization{
 
     public DocumentVerificationOrganization() {

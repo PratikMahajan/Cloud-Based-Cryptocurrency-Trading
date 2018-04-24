@@ -8,10 +8,7 @@ import Business.Role.StockExchangeAdminRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
-/**
- *
- * @author Ankit
- */
+
 public class StockExchangeAdminOrganization extends Organization{
 
     public StockExchangeAdminOrganization() {

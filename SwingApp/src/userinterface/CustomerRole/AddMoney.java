@@ -123,10 +123,10 @@ public class AddMoney extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        creditCardjTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        cvvjTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -208,25 +208,25 @@ public class AddMoney extends javax.swing.JPanel {
 
         jLabel2.setText("Credit Card :");
 
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+        creditCardjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField2KeyTyped(evt);
+                creditCardjTextFieldKeyTyped(evt);
             }
         });
 
         jLabel3.setText("Date :");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        cvvjTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                cvvjTextFieldActionPerformed(evt);
             }
         });
-        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+        cvvjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField4KeyReleased(evt);
+                cvvjTextFieldKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField4KeyTyped(evt);
+                cvvjTextFieldKeyTyped(evt);
             }
         });
 
@@ -244,10 +244,10 @@ public class AddMoney extends javax.swing.JPanel {
         jLabel6.setText("(Only Numeric Values)*");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
-        jLabel7.setText("(Only Numeric Values)*");
+        jLabel7.setText("(16 digit numberic value)*");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
-        jLabel8.setText("(Only Numeric Values)*");
+        jLabel8.setText("(3 digit numeric value)*");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -293,11 +293,11 @@ public class AddMoney extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cvvjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel8))
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnback)))
+                                    .addComponent(btnback)
+                                    .addComponent(jButton1)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -305,7 +305,7 @@ public class AddMoney extends javax.swing.JPanel {
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2)
+                                    .addComponent(creditCardjTextField)
                                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
@@ -349,7 +349,7 @@ public class AddMoney extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(creditCardjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -358,7 +358,7 @@ public class AddMoney extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cvvjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,9 +384,9 @@ public class AddMoney extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void cvvjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cvvjTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_cvvjTextFieldActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         // TODO add your handling code here:
@@ -397,32 +397,42 @@ public class AddMoney extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTextField1KeyTyped
 
-    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+    private void creditCardjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_creditCardjTextFieldKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
         if (!Character.isDigit(c))  //accept only digits
         {
            evt.consume();
         }
-    }//GEN-LAST:event_jTextField2KeyTyped
+        // limit to 16 characters only
+        if (creditCardjTextField.getText().length() >= 16 ){            
+        evt.consume();
+        }
+    }//GEN-LAST:event_creditCardjTextFieldKeyTyped
 
-    private void jTextField4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyReleased
+    private void cvvjTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cvvjTextFieldKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4KeyReleased
+    }//GEN-LAST:event_cvvjTextFieldKeyReleased
 
-    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+    private void cvvjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cvvjTextFieldKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
         if (!Character.isDigit(c))  //accept only digits
         {
            evt.consume();
         }
-    }//GEN-LAST:event_jTextField4KeyTyped
+        // limit to 3 characters only
+        if (cvvjTextField.getText().length() >= 3 ){            
+        evt.consume();
+        }
+    }//GEN-LAST:event_cvvjTextFieldKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LblName;
     private javax.swing.JButton btnback;
+    private javax.swing.JTextField creditCardjTextField;
+    private javax.swing.JTextField cvvjTextField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -435,9 +445,7 @@ public class AddMoney extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblChangeData;
     private javax.swing.JLabel lblChangeName;
     private javax.swing.JLabel lblCoinData;

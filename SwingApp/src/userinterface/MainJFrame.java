@@ -5,7 +5,6 @@
 package UserInterface;
 
 import Business.EcoSystem;
-import Business.ConfigureEcoSystem;
 import Business.DB4OUtil.DB4OUtil;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
@@ -197,6 +196,8 @@ public class MainJFrame extends javax.swing.JFrame {
         
         if(userAccount==null){
             JOptionPane.showMessageDialog(null, "Invalid credentials");
+            userNameJTextField.setText("");
+            passwordField.setText("");
             return;
         }
         else{

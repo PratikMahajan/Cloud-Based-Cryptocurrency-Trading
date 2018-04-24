@@ -14,8 +14,10 @@ import java.util.ArrayList;
  */
 public class CustomerOrganization extends Organization{
 
+    
     public CustomerOrganization() {
         super(Organization.Type.Customer.getValue());
+        
     }
     
     @Override

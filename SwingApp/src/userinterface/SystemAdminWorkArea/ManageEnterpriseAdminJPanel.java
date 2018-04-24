@@ -9,6 +9,7 @@ import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Role.StockExchangeAdminRole;
+import Business.Role.VerificationAdminRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -265,8 +266,12 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         String lastName = lastNameJTextField.getText();
         
         Employee employee = enterprise.getEmployeeDirectory().createEmployee(firstName, lastName);
-        
-        UserAccount account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new StockExchangeAdminRole());
+        if(enterprise.getEnterpriseType().getValue().equals("Stock Exchange")){
+        UserAccount account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new StockExchangeAdminRole());    
+        }
+        else{
+        UserAccount account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new VerificationAdminRole());        
+        }
         
         populateTable();
         

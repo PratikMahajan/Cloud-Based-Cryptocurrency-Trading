@@ -12,7 +12,6 @@ import Business.UserAccount.UserAccount;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import userinterface.CustomerRole.CustomerWorkAreaJPanel;
 import javax.swing.JPanel;
 import org.json.JSONException;
 import userinterface.CustomerRole.CustomerMainPanel;

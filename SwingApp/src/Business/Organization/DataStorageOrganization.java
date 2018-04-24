@@ -9,10 +9,7 @@ import Business.Role.DataStorageRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
-/**
- *
- * @author kalsara.a
- */
+
 public class DataStorageOrganization extends Organization{
 
     public DataStorageOrganization() {

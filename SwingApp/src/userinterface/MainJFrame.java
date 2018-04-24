@@ -15,10 +15,7 @@ import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Ankit
- */
+
 public class MainJFrame extends javax.swing.JFrame {
 
     /**
@@ -52,7 +49,7 @@ public class MainJFrame extends javax.swing.JFrame {
         logoutJButton = new javax.swing.JButton();
         clearDatajButton = new javax.swing.JButton();
         container = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("BitCoin Management");
@@ -124,17 +121,25 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(loginJLabel)
                 .addGap(29, 29, 29)
                 .addComponent(clearDatajButton)
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
 
         container.setLayout(new java.awt.CardLayout());
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel3.setText("Welcome to BitCoin Management");
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        container.add(jLabel3, "card2");
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 757, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 564, Short.MAX_VALUE)
+        );
+
+        container.add(jPanel2, "card2");
 
         jSplitPane1.setRightComponent(container);
 
@@ -151,7 +156,7 @@ public class MainJFrame extends javax.swing.JFrame {
         String password = String.valueOf(passwordCharArray);
         
         //Step1: Check in the system admin user account directory if you have the user
-        UserAccount userAccount=system.getUserAccountDirectory().authenticateUser(userName, password);
+        UserAccount userAccount = system.getUserAccountDirectory().authenticateUser(userName, password);
         
         Enterprise inEnterprise=null;
         Organization inOrganization=null;
@@ -167,12 +172,11 @@ public class MainJFrame extends javax.swing.JFrame {
                        for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()){
                            userAccount=organization.getUserAccountDirectory().authenticateUser(userName, password);
                            if(userAccount!=null){
-                               inEnterprise=enterprise;
-                               inOrganization=organization;
+                               inEnterprise = enterprise;
+                               inOrganization = organization;
                                break;
                            }
                        }
-                        
                     }
                     else{
                        inEnterprise=enterprise;
@@ -266,8 +270,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel container;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton loginJButton;
     private javax.swing.JLabel loginJLabel;

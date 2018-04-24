@@ -11,10 +11,7 @@ import Business.UserAccount.UserAccount;
 import UserInterface.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Ankit
- */
+
 public class SystemAdminRole extends Role{
 
     @Override

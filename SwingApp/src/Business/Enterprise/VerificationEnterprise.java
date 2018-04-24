@@ -8,10 +8,7 @@ package Business.Enterprise;
 import Business.Role.Role;
 import java.util.ArrayList;
 
-/**
- *
- * @author kalsara.a
- */
+
 public class VerificationEnterprise extends Enterprise {
     
     public VerificationEnterprise(String name){

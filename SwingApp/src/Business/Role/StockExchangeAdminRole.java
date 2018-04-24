@@ -11,10 +11,7 @@ import Business.UserAccount.UserAccount;
 import userinterface.StockExchangeAdminRole.StockExchangeAdminWorkAreaJPanel;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Ankit
- */
+
 public class StockExchangeAdminRole extends Role{
 
     @Override

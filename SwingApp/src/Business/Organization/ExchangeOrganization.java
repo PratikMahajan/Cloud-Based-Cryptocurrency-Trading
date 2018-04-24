@@ -9,10 +9,7 @@ import Business.Role.ExchangeRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
-/**
- *
- * @author kalsara.a
- */
+
 public class ExchangeOrganization extends Organization {
     
     public ExchangeOrganization() {

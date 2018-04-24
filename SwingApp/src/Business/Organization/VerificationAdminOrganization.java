@@ -9,10 +9,7 @@ import Business.Role.Role;
 import Business.Role.VerificationAdminRole;
 import java.util.ArrayList;
 
-/**
- *
- * @author kalsara.a
- */
+
 public class VerificationAdminOrganization extends Organization{
 
     public VerificationAdminOrganization() {

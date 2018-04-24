@@ -34,6 +34,7 @@ if not os.path.exists(DATABASE):
     cur.execute("CREATE TABLE buy_coins (recv_address varchar(256), quantity int, price varchar(20));")
     cur.execute("CREATE TABLE sell_coins (sender_address varchar(256), quantity int, price varchar(20));")
     cur.execute("CREATE TABLE matched_txn (sender_address varchar(256), recv_address varchar(256),quantity int, price varchar(20));")
+    cur.execute("CREATE TABLE verify(address varchar(256), bool int);")
     conn.commit()
     conn.close()
 
@@ -111,24 +112,31 @@ def clean_tweet(tweet):
 sentiment=0
 # Defining a background function which will run in thread to take and monotoe tweets in realtime
 def getTwitterSentiments():
-    logging.debug('Starting')
-    global sentiment
-    twit_req=twitter()
-    url = "https://stream.twitter.com/1.1/statuses/filter.json?track=bitcoin"
-    parameters = []
-    response = twit_req.twitterreq(url, "GET", parameters)
-    for line in response:
-        try:
-            twit_content=json.loads(line)["text"]
-            analysis = TextBlob(clean_tweet(twit_content))
-            sentiment+=analysis.sentiment.polarity
-            # print sentiment
-            time.sleep(1)
-        except ValueError:
-            logging.debug("ValueErrorCaught")
-            del twit_req
-            getTwitterSentiments()
-    logging.debug('sentiment crashed')
+    try:
+        logging.debug('Starting')
+        global sentiment
+        twit_req=twitter()
+        url = "https://stream.twitter.com/1.1/statuses/filter.json?track=bitcoin"
+        parameters = []
+        response = twit_req.twitterreq(url, "GET", parameters)
+        for line in response:
+            try:
+                twit_content=json.loads(line)["text"]
+                analysis = TextBlob(clean_tweet(twit_content))
+                sentiment+=analysis.sentiment.polarity
+                # print sentiment
+                time.sleep(1)
+            except ValueError:
+                logging.debug("ValueErrorCaught")
+                del twit_req
+                getTwitterSentiments()
+        logging.debug('sentiment crashed')
+    except Exception as e:
+        del twit_req
+        logging.debug('sentiment crashed outside')
+        getTwitterSentiments()
+
+
 # ------------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------------
 
@@ -154,7 +162,7 @@ def buy_sell_match():
                 logging.debug('Exception in Matcher'+str(e))
                 exit()
     logging.debug('Matcher Crashed')
-
+    buy_sell_match()
 
 
 
@@ -207,6 +215,8 @@ def receive_coins():
         recv_address = request.json['address']
         quantity = request.json['quantity']
         amount= request.json['amount']
+        # print recv_address
+        # print quantity
         cur=get_db().cursor()
         res= cur.execute("INSERT into buy_coins values(?,?,?)",(recv_address,int(quantity),amount))
         get_db().commit()
@@ -307,6 +317,37 @@ def sendDynamicPrice():
         logging.debug("Error in Dynamic Price"+str(e))
         return Response(status=430)
 
+
+
+@app.route("/sendVerify", methods=["POST"])
+def sendVerify():
+    try:
+        address = request.json['address']
+        bool = request.json['bool']
+        cur = get_db().cursor()
+        res = cur.execute("INSERT into verify values(?,?);", (address, int(bool)))
+        get_db().commit()
+        return Response(status=200)
+
+    except Exception as e:
+        logging.debug("Error in send Verify"+str(e))
+        return Response(status=430)
+
+
+@app.route("/recVerify", methods=["POST"])
+def recVerify():
+    try:
+        address = request.json['address']
+        cur = get_db().cursor()
+        res = cur.execute("Select bool from verify where address=? LIMIT 1;", (address,))
+        for row in res:
+            items = {}
+            items['bool'] = int(row[0])
+            return Response(json.dumps(items), status=200, mimetype='application/json')
+        return Response(status=430)
+    except Exception as e:
+        logging.debug("Error in receive Verify" + str(e))
+        return Response(status=430)
 
 
 

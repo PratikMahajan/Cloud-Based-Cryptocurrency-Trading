@@ -12,10 +12,7 @@ import Business.UserAccount.UserAccount;
 import userinterface.BrokerRole.BrokerWorkAreaJPanel;
 import javax.swing.JPanel;
 
-/**
- *
- * @author kalsara.a
- */
+
 public class DataStorageRole extends Role {
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {

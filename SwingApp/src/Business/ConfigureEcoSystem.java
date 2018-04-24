@@ -4,10 +4,7 @@ import Business.Employee.Employee;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
 
-/**
- *
- * @author Ankit
- */
+
 public class ConfigureEcoSystem {
     
     public static EcoSystem configure(){

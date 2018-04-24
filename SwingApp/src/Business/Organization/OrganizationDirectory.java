@@ -7,10 +7,7 @@ package Business.Organization;
 import Business.Organization.Organization.Type;
 import java.util.ArrayList;
 
-/**
- *
-* @author Ankit
- */
+
 public class OrganizationDirectory {
     
     private ArrayList<Organization> organizationList;

@@ -188,7 +188,7 @@
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Manage Enterprises"/>
+        <Property name="text" type="java.lang.String" value="Sysftem Administrator: Manage Enterprises"/>
       </Properties>
     </Component>
   </SubComponents>

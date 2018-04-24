@@ -108,7 +108,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Manage Networks");
+        jLabel7.setText("System Administrator: Manage Networks");
 
         clearjButton.setText("Clear");
         clearjButton.addActionListener(new java.awt.event.ActionListener() {

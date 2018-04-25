@@ -64,60 +64,7 @@ public class ManageAccount extends javax.swing.JPanel {
     }
 
     
-    private void getSellCoin() throws IOException, JSONException
-    {
-       try {
-
-		URL url = new URL("http://127.0.0.1:5000/sell");
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("POST");
-		conn.setRequestProperty("Content-Type", "application/json");
-                conn.setDoOutput(true);
-                
-		String input = "{\"address\":\"gybguyg66g7f\",\"quantity\":100,\"amount\":\"100.2\"}";
-
-		OutputStream os = conn.getOutputStream();
-		os.write(input.getBytes());
-		os.flush();
-                
-                if(conn.getResponseCode() == 200){
-                    System.out.println("Response positive");
-                }
-		if (conn.getResponseCode() != 200) {
-			throw new RuntimeException("Failed : HTTP error code : "
-					+ conn.getResponseCode());
-		}
-
-//		BufferedReader br = new BufferedReader(new InputStreamReader(
-//			(conn.getInputStream())));
-////
-//		String output;
-//                output = br.readLine();
-////		while ((output = br.readLine()) != null) {
-////			System.out.println(output);
-////		}
-//                output = output.replace("[", "").replace("]", "");
-//                JSONObject obj = new JSONObject(output);
-//                Double price = obj.getDouble("Price");
-////                System.out.println(firstItem.getInt("id"));
-////                System.out.println(price);
-//                String pr=price.toString();
-
-		
-                conn.disconnect();
-
-	  } catch (MalformedURLException e) {
-
-		e.printStackTrace();
-
-	  } catch (IOException e) {
-
-		e.printStackTrace();
-
-	  }
-		
-
-    }
+    
     
     
     private void getPrice() throws IOException, JSONException

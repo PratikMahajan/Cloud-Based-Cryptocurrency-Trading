@@ -91,6 +91,10 @@ public class BuyCoins extends javax.swing.JPanel {
                 output = output.replace("[", "").replace("]", "");
                 JSONObject obj = new JSONObject(output);
                 double quant = obj.getDouble("quantity");
+                String pr= obj.getString("price");
+                double pricesell=Double.parseDouble(pr);
+                double usrdollars=userAccount.getEmployee().getWl().getDollars();
+                userAccount.getEmployee().getWl().setDollars(usrdollars-pricesell*quant);
 //                System.out.println(firstItem.getInt("id"));
 //                System.out.println(price);
 //                String pr=price.toString();
@@ -179,6 +183,10 @@ public class BuyCoins extends javax.swing.JPanel {
                 output = output.replace("[", "").replace("]", "");
                 JSONObject obj = new JSONObject(output);
                 double quant = obj.getDouble("quantity");
+                String pr= obj.getString("price");
+                double pricesell=Double.parseDouble(pr);
+                double usrdollars=userAccount.getEmployee().getWl().getDollars();
+                userAccount.getEmployee().getWl().setDollars(usrdollars+pricesell*quant);
 //                System.out.println(firstItem.getInt("id"));
 //                System.out.println(price);
 //                String pr=price.toString();
@@ -373,6 +381,7 @@ public class BuyCoins extends javax.swing.JPanel {
         lblQuantity = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        lblpricedescl = new javax.swing.JLabel();
 
         LblName.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         LblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -458,6 +467,8 @@ public class BuyCoins extends javax.swing.JPanel {
             }
         });
 
+        lblpricedescl.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -493,18 +504,19 @@ public class BuyCoins extends javax.swing.JPanel {
                             .addComponent(lblCoinIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnback)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblpricedescl, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblQuantity))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(btnback)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,15 +545,18 @@ public class BuyCoins extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblCoinName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCoinData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                .addComponent(lblpricedescl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
-                .addComponent(btnback)
-                .addGap(125, 125, 125)
-                .addComponent(jButton2))
+                    .addComponent(lblQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(137, 137, 137)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(btnback)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -584,6 +599,7 @@ public class BuyCoins extends javax.swing.JPanel {
             setInvestments();
             postBuyMatch();
             postSellMatch();
+            lblpricedescl.setText("You're Buying Coins at "+lblPriceData.getText()+" $");
         } catch (IOException ex) {
             Logger.getLogger(BuyCoins.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
@@ -610,5 +626,6 @@ public class BuyCoins extends javax.swing.JPanel {
     private javax.swing.JLabel lblPriceData;
     private javax.swing.JLabel lblPriceName;
     private javax.swing.JTextField lblQuantity;
+    private javax.swing.JLabel lblpricedescl;
     // End of variables declaration//GEN-END:variables
 }

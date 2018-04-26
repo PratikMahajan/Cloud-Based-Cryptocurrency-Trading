@@ -90,11 +90,15 @@ public class AddMoney extends javax.swing.JPanel {
                 output = output.replace("[", "").replace("]", "");
                 JSONObject obj = new JSONObject(output);
                 double quant = obj.getDouble("quantity");
+                String pr= obj.getString("price");
+                double pricesell=Double.parseDouble(pr);
+                double usrdollars=userAccount.getEmployee().getWl().getDollars();
+                userAccount.getEmployee().getWl().setDollars(usrdollars-pricesell*quant);
 //                System.out.println(firstItem.getInt("id"));
 //                System.out.println(price);
 //                String pr=price.toString();
                 double usrcoins= userAccount.getEmployee().getWl().getCoins();
-                userAccount.getEmployee().getWl().setCoins(usrcoins-quant);
+                userAccount.getEmployee().getWl().setCoins(usrcoins+quant);
 		
                 setInvestments();
                 
@@ -178,6 +182,10 @@ public class AddMoney extends javax.swing.JPanel {
                 output = output.replace("[", "").replace("]", "");
                 JSONObject obj = new JSONObject(output);
                 double quant = obj.getDouble("quantity");
+                String pr= obj.getString("price");
+                double pricesell=Double.parseDouble(pr);
+                double usrdollars=userAccount.getEmployee().getWl().getDollars();
+                userAccount.getEmployee().getWl().setDollars(usrdollars+pricesell*quant);
 //                System.out.println(firstItem.getInt("id"));
 //                System.out.println(price);
 //                String pr=price.toString();
@@ -506,7 +514,6 @@ public class AddMoney extends javax.swing.JPanel {
                                         .addComponent(cvvjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel8))
-                                    .addComponent(btnback)
                                     .addComponent(jButton1)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -524,7 +531,8 @@ public class AddMoney extends javax.swing.JPanel {
                                     .addComponent(jLabel7))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnback)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(339, 339, 339))
         );
@@ -555,7 +563,7 @@ public class AddMoney extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblCoinName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCoinData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(9, 9, 9)
+                .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtamt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -582,10 +590,10 @@ public class AddMoney extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(btnback)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
-                .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(btnback)))
         );
     }// </editor-fold>//GEN-END:initComponents
 

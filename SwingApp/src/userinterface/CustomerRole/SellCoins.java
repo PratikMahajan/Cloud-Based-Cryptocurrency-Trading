@@ -93,6 +93,10 @@ public class SellCoins extends javax.swing.JPanel {
                 output = output.replace("[", "").replace("]", "");
                 JSONObject obj = new JSONObject(output);
                 double quant = obj.getDouble("quantity");
+                String pr= obj.getString("price");
+                double pricesell=Double.parseDouble(pr);
+                double usrdollars=userAccount.getEmployee().getWl().getDollars();
+                userAccount.getEmployee().getWl().setDollars(usrdollars-pricesell*quant);
 //                System.out.println(firstItem.getInt("id"));
 //                System.out.println(price);
 //                String pr=price.toString();
@@ -181,11 +185,15 @@ public class SellCoins extends javax.swing.JPanel {
                 output = output.replace("[", "").replace("]", "");
                 JSONObject obj = new JSONObject(output);
                 double quant = obj.getDouble("quantity");
+                String pr= obj.getString("price");
+                double pricesell=Double.parseDouble(pr);
 //                System.out.println(firstItem.getInt("id"));
 //                System.out.println(price);
 //                String pr=price.toString();
                 double usrcoins= userAccount.getEmployee().getWl().getCoins();
                 userAccount.getEmployee().getWl().setCoins(usrcoins-quant);
+                double usrdollars=userAccount.getEmployee().getWl().getDollars();
+                userAccount.getEmployee().getWl().setDollars(usrdollars+pricesell*quant);
 		
                 setInvestments();
                 
@@ -377,6 +385,7 @@ public class SellCoins extends javax.swing.JPanel {
         txtQuantity = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        lblpricediscl = new javax.swing.JLabel();
 
         LblName.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         LblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -462,6 +471,8 @@ public class SellCoins extends javax.swing.JPanel {
             }
         });
 
+        lblpricediscl.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -495,20 +506,21 @@ public class SellCoins extends javax.swing.JPanel {
                                     .addComponent(lblChangeName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblChangeData, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(lblCoinIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(40, Short.MAX_VALUE))
+                        .addContainerGap(78, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnback)
+                            .addComponent(lblpricediscl, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1)))
-                        .addGap(0, 630, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                    .addComponent(txtQuantity))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(btnback)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -537,15 +549,18 @@ public class SellCoins extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblCoinName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCoinData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addComponent(lblpricediscl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
-                .addComponent(btnback)
-                .addGap(137, 137, 137)
-                .addComponent(jButton2))
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(143, 143, 143)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(btnback)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -567,6 +582,7 @@ public class SellCoins extends javax.swing.JPanel {
             setInvestments();
             postBuyMatch();
             postSellMatch();
+            lblpricediscl.setText("You're Selling Coins at "+lblPriceData.getText()+" $");
         } catch (IOException ex) {
             Logger.getLogger(SellCoins.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
@@ -614,6 +630,7 @@ public class SellCoins extends javax.swing.JPanel {
     private javax.swing.JLabel lblInvestmentName;
     private javax.swing.JLabel lblPriceData;
     private javax.swing.JLabel lblPriceName;
+    private javax.swing.JLabel lblpricediscl;
     private javax.swing.JTextField txtQuantity;
     // End of variables declaration//GEN-END:variables
 }

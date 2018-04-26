@@ -99,6 +99,10 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                 output = output.replace("[", "").replace("]", "");
                 JSONObject obj = new JSONObject(output);
                 double quant = obj.getDouble("quantity");
+                String pr= obj.getString("price");
+                double pricesell=Double.parseDouble(pr);
+                double usrdollars=userAccount.getEmployee().getWl().getDollars();
+                userAccount.getEmployee().getWl().setDollars(usrdollars-pricesell*quant);
 //                System.out.println(firstItem.getInt("id"));
 //                System.out.println(price);
 //                String pr=price.toString();
@@ -187,6 +191,10 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                 output = output.replace("[", "").replace("]", "");
                 JSONObject obj = new JSONObject(output);
                 double quant = obj.getDouble("quantity");
+                String pr= obj.getString("price");
+                double pricesell=Double.parseDouble(pr);
+                double usrdollars=userAccount.getEmployee().getWl().getDollars();
+                userAccount.getEmployee().getWl().setDollars(usrdollars+pricesell*quant);
 //                System.out.println(firstItem.getInt("id"));
 //                System.out.println(price);
 //                String pr=price.toString();

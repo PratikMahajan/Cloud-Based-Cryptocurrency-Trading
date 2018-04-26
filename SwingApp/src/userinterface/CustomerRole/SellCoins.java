@@ -45,14 +45,11 @@ public class SellCoins extends javax.swing.JPanel {
         this.organization         = organization;
         this.enterprise           = enterprise;
         this.userAccount          = account;
-<<<<<<< HEAD
-        
-        LblName.setText("Welcome "+ userAccount.getEmployee().getFirstName() + " " + userAccount.getEmployee().getLastName());
-=======
+
         LblName.setText("Sell Coins");
         
         addr="adr"+userAccount.getEmployee().getFirstName()+userAccount.getEmployee().getLastName();
->>>>>>> remotes/origin/Mahajan
+
         
         getPrice();
         setInvestments();

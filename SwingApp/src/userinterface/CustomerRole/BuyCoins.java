@@ -7,6 +7,7 @@ package userinterface.CustomerRole;
 
 import Business.Enterprise.Enterprise;
 import Business.Organization.CustomerOrganization;
+import Business.Transaction;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.io.BufferedReader;
@@ -16,6 +17,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -258,8 +260,8 @@ public class BuyCoins extends javax.swing.JPanel {
 		conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoOutput(true);
                 
-                int quant=Integer.parseInt(lblQuantity.getText());
-                String amtt=lblPriceData.getText();
+                int quant = Integer.parseInt(lblQuantity.getText());
+                String amtt = lblPriceData.getText();
                 
 		String input = "{\"address\":\""+addr+"\",\"quantity\":"+quant+",\"amount\":\""+amtt+"\"}";
 
@@ -267,8 +269,9 @@ public class BuyCoins extends javax.swing.JPanel {
 		os.write(input.getBytes());
 		os.flush();
                 
+                
                 if(conn.getResponseCode() == 200){
-                    System.out.println("Response positive");
+                    System.out.println("Response positive");                    
                 }
 		if (conn.getResponseCode() != 200) {
 //			throw new RuntimeException("Failed : HTTP error code : "

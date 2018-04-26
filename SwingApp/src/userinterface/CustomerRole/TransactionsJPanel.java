@@ -7,9 +7,11 @@ package userinterface.CustomerRole;
 
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
+import Business.Transaction;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 
 public class TransactionsJPanel extends javax.swing.JPanel {
@@ -58,7 +60,7 @@ public class TransactionsJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Transaction ID", "Date", "Amount", "Coin Quantity", "Buyer", "Seller"
+                "Transaction ID", "Date", "Buyer", "Seller", "Coin Quantity", "Amount"
             }
         ));
         jScrollPane1.setViewportView(transactionsJTbl);
@@ -112,7 +114,21 @@ public class TransactionsJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backJBtnActionPerformed
 
     public void refreshtransactionsTable(){
+        //display list of all transactions for current user
+        DefaultTableModel dtm = (DefaultTableModel)transactionsJTbl.getModel();
+        dtm.setRowCount(0);
         
+        for(Transaction t: userAccount.getEmployee().getTl().getTransactionList())
+        { 
+             Object row[] = new Object[6];
+             row[0] = t.getTransactionId();
+             row[1] = t.getTransactiondate();
+             row[2] = t.getBuyer();
+             row[3] = t.getSeller();
+             row[4] = t.getCoinQuantity();
+             row[5] = t.getAmount();
+             dtm.addRow(row);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,17 +5,15 @@
  */
 package Business;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
-
 
 public class Transaction {
     private static int count = 1;
-    private int transactionId;
-    private String transactiondate;
-    private String buyer;
-    private String seller;
-    private float coinQuantity;
-    private float amount;
+    private int        transactionId;
+    private String     transactiondate;
+    private String     buyer;
+    private String     seller;
+    private float      coinQuantity;
+    private float      amount;
     
     public Transaction(){
         transactionId = count;

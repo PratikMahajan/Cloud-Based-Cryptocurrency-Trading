@@ -117,8 +117,8 @@ public class ManageAccount extends javax.swing.JPanel  {
 //                System.out.println(price);
 //                String pr=price.toString();
                 double usrcoins= userAccount.getEmployee().getWl().getCoins();
-                userAccount.getEmployee().getWl().setCoins(usrcoins-quant);
-		
+                userAccount.getEmployee().getWl().setCoins(usrcoins+quant);
+		  
                 setInvestments();
                 
                 conn.disconnect();

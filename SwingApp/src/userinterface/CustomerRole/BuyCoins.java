@@ -45,7 +45,7 @@ public class BuyCoins extends javax.swing.JPanel {
         this.organization         = organization;
         this.enterprise           = enterprise;
         this.userAccount          = account;
-        LblName.setText("Welcome");
+        LblName.setText("Buy Coins");
         
         addr="adr"+userAccount.getEmployee().getFirstName()+userAccount.getEmployee().getLastName();
         
@@ -95,7 +95,7 @@ public class BuyCoins extends javax.swing.JPanel {
 //                System.out.println(price);
 //                String pr=price.toString();
                 double usrcoins= userAccount.getEmployee().getWl().getCoins();
-                userAccount.getEmployee().getWl().setCoins(usrcoins-quant);
+                userAccount.getEmployee().getWl().setCoins(usrcoins+quant);
 		
                 setInvestments();
                 
@@ -250,7 +250,10 @@ public class BuyCoins extends javax.swing.JPanel {
 		conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoOutput(true);
                 
-		String input = "{\"address\":\""+addr+"\",\"quantity\":100,\"amount\":\"100.2\"}";
+                int quant=Integer.parseInt(lblQuantity.getText());
+                String amtt=lblPriceData.getText();
+                
+		String input = "{\"address\":\""+addr+"\",\"quantity\":"+quant+",\"amount\":\""+amtt+"\"}";
 
 		OutputStream os = conn.getOutputStream();
 		os.write(input.getBytes());
@@ -367,7 +370,7 @@ public class BuyCoins extends javax.swing.JPanel {
         lblDollarData = new javax.swing.JLabel();
         btnback = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        lblQuantity = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -430,14 +433,14 @@ public class BuyCoins extends javax.swing.JPanel {
 
         jLabel1.setText("Enter Quantity of Coins:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        lblQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                lblQuantityActionPerformed(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        lblQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                lblQuantityKeyTyped(evt);
             }
         });
 
@@ -495,7 +498,7 @@ public class BuyCoins extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1)))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -533,7 +536,7 @@ public class BuyCoins extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(btnback)
@@ -548,9 +551,9 @@ public class BuyCoins extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnbackActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void lblQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblQuantityActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_lblQuantityActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
@@ -564,14 +567,14 @@ public class BuyCoins extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void lblQuantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblQuantityKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
         if (!Character.isDigit(c))  //accept only digits
         {
            evt.consume();
         }
-    }//GEN-LAST:event_jTextField1KeyTyped
+    }//GEN-LAST:event_lblQuantityKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
@@ -596,7 +599,6 @@ public class BuyCoins extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblChangeData;
     private javax.swing.JLabel lblChangeName;
     private javax.swing.JLabel lblCoinData;
@@ -607,5 +609,6 @@ public class BuyCoins extends javax.swing.JPanel {
     private javax.swing.JLabel lblInvestmentName;
     private javax.swing.JLabel lblPriceData;
     private javax.swing.JLabel lblPriceName;
+    private javax.swing.JTextField lblQuantity;
     // End of variables declaration//GEN-END:variables
 }

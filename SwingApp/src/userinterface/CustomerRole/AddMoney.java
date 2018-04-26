@@ -45,7 +45,7 @@ public class AddMoney extends javax.swing.JPanel {
         this.organization         = organization;
         this.enterprise           = enterprise;
         this.userAccount          = account;
-        LblName.setText("Welcome");
+        LblName.setText("Add Money");
         
         addr="adr"+userAccount.getEmployee().getFirstName()+userAccount.getEmployee().getLastName();
         getPrice();
@@ -94,7 +94,7 @@ public class AddMoney extends javax.swing.JPanel {
 //                System.out.println(price);
 //                String pr=price.toString();
                 double usrcoins= userAccount.getEmployee().getWl().getCoins();
-                userAccount.getEmployee().getWl().setCoins(usrcoins-quant);
+                userAccount.getEmployee().getWl().setCoins(usrcoins+quant);
 		
                 setInvestments();
                 
@@ -318,7 +318,7 @@ public class AddMoney extends javax.swing.JPanel {
         lblDollarData = new javax.swing.JLabel();
         btnback = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtamt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         creditCardjTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -393,14 +393,14 @@ public class AddMoney extends javax.swing.JPanel {
 
         jLabel1.setText("Enter Amount :");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtamt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtamtActionPerformed(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtamt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                txtamtKeyTyped(evt);
             }
         });
 
@@ -437,6 +437,11 @@ public class AddMoney extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Add Money");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
         jLabel6.setText("(Only Numeric Values)*");
@@ -512,7 +517,7 @@ public class AddMoney extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(creditCardjTextField)
                                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtamt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
@@ -553,7 +558,7 @@ public class AddMoney extends javax.swing.JPanel {
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtamt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -590,22 +595,22 @@ public class AddMoney extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnbackActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtamtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtamtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtamtActionPerformed
 
     private void cvvjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cvvjTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cvvjTextFieldActionPerformed
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void txtamtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtamtKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
         if (!Character.isDigit(c))  //accept only digits
         {
            evt.consume();
         }
-    }//GEN-LAST:event_jTextField1KeyTyped
+    }//GEN-LAST:event_txtamtKeyTyped
 
     private void creditCardjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_creditCardjTextFieldKeyTyped
         // TODO add your handling code here:
@@ -653,6 +658,16 @@ public class AddMoney extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        double amt= Double.parseDouble(txtamt.getText());
+        double prevbal= userAccount.getEmployee().getWl().getDollars();
+        userAccount.getEmployee().getWl().setDollars(amt+prevbal);
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LblName;
@@ -671,7 +686,6 @@ public class AddMoney extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblChangeData;
     private javax.swing.JLabel lblChangeName;
@@ -683,5 +697,6 @@ public class AddMoney extends javax.swing.JPanel {
     private javax.swing.JLabel lblInvestmentName;
     private javax.swing.JLabel lblPriceData;
     private javax.swing.JLabel lblPriceName;
+    private javax.swing.JTextField txtamt;
     // End of variables declaration//GEN-END:variables
 }

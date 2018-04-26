@@ -7,6 +7,7 @@ package userinterface.CustomerRole;
 
 import Business.Enterprise.Enterprise;
 import Business.Organization.CustomerOrganization;
+import Business.Transaction;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.io.BufferedReader;
@@ -16,6 +17,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -103,6 +105,18 @@ public class SellCoins extends javax.swing.JPanel {
                 double usrcoins= userAccount.getEmployee().getWl().getCoins();
                 userAccount.getEmployee().getWl().setCoins(usrcoins+quant);
 		
+                
+                
+                String seller= obj.getString("recv_from");
+                Transaction trans = userAccount.getEmployee().getTl().addTransaction();
+                trans.setAmount((float)pricesell);
+                trans.setCoinQuantity((float)quant);
+                trans.setSeller(seller);
+                trans.setBuyer(addr);
+                trans.setTransactiondate(new Date().toString());
+                
+                
+                
                 setInvestments();
                 
                 conn.disconnect();
@@ -195,6 +209,16 @@ public class SellCoins extends javax.swing.JPanel {
                 double usrdollars=userAccount.getEmployee().getWl().getDollars();
                 userAccount.getEmployee().getWl().setDollars(usrdollars+pricesell*quant);
 		
+                
+                String seller= obj.getString("send_to");
+                Transaction trans = userAccount.getEmployee().getTl().addTransaction();
+                trans.setAmount((float)pricesell);
+                trans.setCoinQuantity((float)quant);
+                trans.setSeller(addr);
+                trans.setBuyer(seller);
+                trans.setTransactiondate(new Date().toString());
+                
+                
                 setInvestments();
                 
                 conn.disconnect();

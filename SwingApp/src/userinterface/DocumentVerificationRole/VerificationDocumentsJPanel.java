@@ -117,7 +117,7 @@ public class VerificationDocumentsJPanel extends javax.swing.JPanel {
 		conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoOutput(true);
                 
-		String input = "{\"address\":\"gybguyg66g7f\",\"bool\":"+verif+"}";
+		String input = "{\"address\":\""+data+"\",\"bool\":"+verif+"}";
 
 		OutputStream os = conn.getOutputStream();
 		os.write(input.getBytes());

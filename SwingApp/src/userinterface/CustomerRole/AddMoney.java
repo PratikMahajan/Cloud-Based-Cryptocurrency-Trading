@@ -12,6 +12,7 @@ import java.awt.CardLayout;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,6 +36,7 @@ public class AddMoney extends javax.swing.JPanel {
     private CustomerOrganization organization;
     private Enterprise           enterprise;
     private UserAccount          userAccount;
+    private String addr;
     
     public AddMoney(JPanel userProcessContainer, UserAccount account, CustomerOrganization organization, Enterprise enterprise) throws IOException, JSONException {
         initComponents();
@@ -45,10 +47,188 @@ public class AddMoney extends javax.swing.JPanel {
         this.userAccount          = account;
         LblName.setText("Welcome");
         
+        addr="adr"+userAccount.getEmployee().getFirstName()+userAccount.getEmployee().getLastName();
         getPrice();
         setInvestments();
     }
 
+    
+     
+    private void postBuyMatch() throws IOException, JSONException
+    {
+       try {
+
+		URL url = new URL("http://aedstock.herokuapp.com/buymatched");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+                
+		String input = "{\"address\":\""+addr+"\"}";
+
+		OutputStream os = conn.getOutputStream();
+		os.write(input.getBytes());
+		os.flush();
+                
+                if(conn.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn.getResponseCode() != 200) {
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn.getResponseCode());
+                        System.out.println("none");
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+			(conn.getInputStream())));
+//
+		String output;
+                output = br.readLine();
+//		while ((output = br.readLine()) != null) {
+//			System.out.println(output);
+//		}
+                output = output.replace("[", "").replace("]", "");
+                JSONObject obj = new JSONObject(output);
+                double quant = obj.getDouble("quantity");
+//                System.out.println(firstItem.getInt("id"));
+//                System.out.println(price);
+//                String pr=price.toString();
+                double usrcoins= userAccount.getEmployee().getWl().getCoins();
+                userAccount.getEmployee().getWl().setCoins(usrcoins-quant);
+		
+                setInvestments();
+                
+                conn.disconnect();
+                
+                URL url2 = new URL("http://aedstock.herokuapp.com/delbuy");
+		HttpURLConnection conn2 = (HttpURLConnection) url2.openConnection();
+		conn2.setRequestMethod("POST");
+		conn2.setRequestProperty("Content-Type", "application/json");
+                conn2.setDoOutput(true);
+                
+		String input2 = "{\"address\":\""+addr+"\"}";
+
+		OutputStream os2 = conn2.getOutputStream();
+		os2.write(input2.getBytes());
+		os2.flush();
+                
+                if(conn2.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn2.getResponseCode() != 200) {
+			throw new RuntimeException("Failed : HTTP error code : "
+					+ conn2.getResponseCode());
+		}
+                
+                conn2.disconnect();
+                
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+
+	  }
+		
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    private void postSellMatch() throws IOException, JSONException
+    {
+       try {
+
+		URL url = new URL("http://aedstock.herokuapp.com/sellmatched");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+                
+		String input = "{\"address\":\""+addr+"\"}";
+
+		OutputStream os = conn.getOutputStream();
+		os.write(input.getBytes());
+		os.flush();
+                
+                if(conn.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn.getResponseCode() != 200) {
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn.getResponseCode());
+                        System.out.println("none");
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+			(conn.getInputStream())));
+//
+		String output;
+                output = br.readLine();
+//		while ((output = br.readLine()) != null) {
+//			System.out.println(output);
+//		}
+                output = output.replace("[", "").replace("]", "");
+                JSONObject obj = new JSONObject(output);
+                double quant = obj.getDouble("quantity");
+//                System.out.println(firstItem.getInt("id"));
+//                System.out.println(price);
+//                String pr=price.toString();
+                double usrcoins= userAccount.getEmployee().getWl().getCoins();
+                userAccount.getEmployee().getWl().setCoins(usrcoins-quant);
+		
+                setInvestments();
+                
+                conn.disconnect();
+                
+                URL url2 = new URL("http://aedstock.herokuapp.com/delsel");
+		HttpURLConnection conn2 = (HttpURLConnection) url2.openConnection();
+		conn2.setRequestMethod("POST");
+		conn2.setRequestProperty("Content-Type", "application/json");
+                conn2.setDoOutput(true);
+                
+		String input2 = "{\"address\":\""+addr+"\"}";
+
+		OutputStream os2 = conn2.getOutputStream();
+		os2.write(input2.getBytes());
+		os2.flush();
+                
+                if(conn2.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn2.getResponseCode() != 200) {
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn2.getResponseCode());
+                        System.out.println("none");
+		}
+                
+                conn2.disconnect();
+                
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+
+	  }
+		
+
+    }
+   
+   
+   
+    
+    
     
      private void setInvestments()
     {
@@ -60,6 +240,9 @@ public class AddMoney extends javax.swing.JPanel {
         
     }
     
+     
+     
+     
     
     private void getPrice() throws IOException, JSONException
     {
@@ -71,8 +254,9 @@ public class AddMoney extends javax.swing.JPanel {
 		conn.setRequestProperty("Accept", "application/json");
 
 		if (conn.getResponseCode() != 200) {
-			throw new RuntimeException("Failed : HTTP error code : "
-					+ conn.getResponseCode());
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn.getResponseCode());
+                        System.out.println("none3");
 		}
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -458,6 +642,8 @@ public class AddMoney extends javax.swing.JPanel {
             // TODO add your handling code here:
             getPrice();
             setInvestments();
+            postBuyMatch();
+            postSellMatch();
         } catch (IOException ex) {
             Logger.getLogger(AddMoney.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {

@@ -58,7 +58,7 @@ public class ManageAccount extends javax.swing.JPanel {
         this.organization         = organization;
         this.enterprise           = enterprise;
         this.userAccount          = account;
-        LblName.setText("Welcome");
+        LblName.setText("Welcome "+ userAccount.getEmployee().getFirstName() + " " + userAccount.getEmployee().getLastName());
         
         getPrice();
     }

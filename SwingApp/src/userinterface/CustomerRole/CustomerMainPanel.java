@@ -44,13 +44,13 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         this.organization         = organization;
         this.enterprise           = enterprise;
         this.userAccount          = account;
-        LblName.setText("Welcome");
+        LblName.setText("Welcome " + userAccount.getEmployee().getFirstName() + " " + userAccount.getEmployee().getLastName() );
         
         getPrice();
         
         //enable buy and sell button only for verified user
         if(userAccount.getEmployee().isVerifiedUser()){
-            btnAddMoney.setEnabled(true);
+            btnSellCoins.setEnabled(true);
             btnBuyCoins.setEnabled(true);
         }
     }
@@ -129,8 +129,9 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         btnBuyCoins = new javax.swing.JButton();
         lblPplSaying = new javax.swing.JLabel();
         btnViewTransactions = new javax.swing.JButton();
-        btnSellCoins1 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnSellCoins = new javax.swing.JButton();
+        manageAccountJBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         DummyDel.setText("DummyDel");
         DummyDel.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +191,6 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         lblDollarData.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnAddMoney.setText("Add Money");
-        btnAddMoney.setEnabled(false);
         btnAddMoney.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddMoneyActionPerformed(evt);
@@ -217,19 +217,23 @@ public class CustomerMainPanel extends javax.swing.JPanel {
             }
         });
 
-        btnSellCoins1.setText("Sell Coins");
-        btnSellCoins1.addActionListener(new java.awt.event.ActionListener() {
+        btnSellCoins.setText("Sell Coins");
+        btnSellCoins.setEnabled(false);
+        btnSellCoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSellCoins1ActionPerformed(evt);
+                btnSellCoinsActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Manage Account");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        manageAccountJBtn.setText("Manage My Account");
+        manageAccountJBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                manageAccountJBtnActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
+        jLabel1.setText("Buying and Selling of coins is enabled only for verified users");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -250,34 +254,41 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(78, 78, 78)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblCoinName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblDollarsName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(lblDollarData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(lblCoinData, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(lblInvestmentName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAddMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnViewTransactions, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblCoinIndex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblPriceData, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblPriceName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(lblChangeName, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                                            .addComponent(lblChangeData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(lblCoinName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lblDollarsName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(lblDollarData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(lblCoinData, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(34, 34, 34)
+                                                .addComponent(jLabel1))
+                                            .addComponent(lblInvestmentName, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 30, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(btnBuyCoins, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                                            .addComponent(btnSellCoins1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(lblPriceData, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lblPriceName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(lblChangeName, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                                                    .addComponent(lblChangeData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(lblCoinIndex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnAddMoney)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnBuyCoins)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnSellCoins)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnViewTransactions)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(manageAccountJBtn)
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())))))
         );
@@ -289,7 +300,9 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblPplSaying, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPplSaying, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCoinIndex, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblPriceName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,9 +312,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                             .addComponent(lblPriceData, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                             .addComponent(lblChangeData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblInvestmentName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCoinIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblInvestmentName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblDollarsName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -310,17 +321,16 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblCoinName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCoinData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuyCoins, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuyCoins, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSellCoins, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnViewTransactions, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSellCoins1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+                    .addComponent(manageAccountJBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
                 .addComponent(DummyDel))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -332,13 +342,11 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         userProcessContainer.add("CWAJ",cm);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
-        
     }//GEN-LAST:event_DummyDelActionPerformed
 
     private void btnAddMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMoneyActionPerformed
         // TODO add your handling code here:
-        AddMoney cm=null;
+        AddMoney cm = null;
         try {
             cm = new AddMoney(userProcessContainer, userAccount, organization, enterprise);
         } catch (IOException ex) {
@@ -349,13 +357,11 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         userProcessContainer.add("add Money",cm);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
-        
     }//GEN-LAST:event_btnAddMoneyActionPerformed
 
     private void btnBuyCoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyCoinsActionPerformed
         
-        BuyCoins cm=null;
+        BuyCoins cm = null;
         try {
             cm = new BuyCoins(userProcessContainer, userAccount, organization, enterprise);
         } catch (IOException ex) {
@@ -366,8 +372,6 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         userProcessContainer.add("Buy Coins",cm);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
-        
     }//GEN-LAST:event_btnBuyCoinsActionPerformed
 
     private void btnViewTransactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTransactionsActionPerformed
@@ -378,10 +382,9 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewTransactionsActionPerformed
 
-    private void btnSellCoins1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellCoins1ActionPerformed
+    private void btnSellCoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellCoinsActionPerformed
         
-        
-        SellCoins cm=null;
+        SellCoins cm = null;
         try {
             cm = new SellCoins(userProcessContainer, userAccount, organization, enterprise);
         } catch (IOException ex) {
@@ -392,12 +395,11 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         userProcessContainer.add("Buy Coins",cm);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
-    }//GEN-LAST:event_btnSellCoins1ActionPerformed
+    }//GEN-LAST:event_btnSellCoinsActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void manageAccountJBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountJBtnActionPerformed
        
-        ManageAccount cm=null;
+        ManageAccount cm = null;
         try {
             cm = new ManageAccount(userProcessContainer, userAccount, organization, enterprise);
         } catch (IOException ex) {
@@ -408,10 +410,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         userProcessContainer.add("Manage Account",cm);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_manageAccountJBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -419,9 +418,9 @@ public class CustomerMainPanel extends javax.swing.JPanel {
     private javax.swing.JLabel LblName;
     private javax.swing.JButton btnAddMoney;
     private javax.swing.JButton btnBuyCoins;
-    private javax.swing.JButton btnSellCoins1;
+    private javax.swing.JButton btnSellCoins;
     private javax.swing.JButton btnViewTransactions;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblChangeData;
     private javax.swing.JLabel lblChangeName;
     private javax.swing.JLabel lblCoinData;
@@ -433,5 +432,6 @@ public class CustomerMainPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblPplSaying;
     private javax.swing.JLabel lblPriceData;
     private javax.swing.JLabel lblPriceName;
+    private javax.swing.JButton manageAccountJBtn;
     // End of variables declaration//GEN-END:variables
 }

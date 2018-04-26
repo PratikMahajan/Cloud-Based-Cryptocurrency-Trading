@@ -8,6 +8,7 @@ package userinterface.CustomerRole;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 
@@ -27,6 +28,8 @@ public class TransactionsJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         refreshtransactionsTable();
+        namejLabel.setText("Welcome "+ userAccount.getEmployee().getFirstName() + " " + userAccount.getEmployee().getLastName());
+        
     }
 
     /**
@@ -38,16 +41,14 @@ public class TransactionsJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         transactionsJTbl = new javax.swing.JTable();
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel5.setText("Customer Work Area:");
+        backJBtn = new javax.swing.JButton();
+        namejLabel = new javax.swing.JLabel();
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel6.setText("View My Transactions:");
+        jLabel6.setText("View Transactions:");
 
         transactionsJTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -62,6 +63,16 @@ public class TransactionsJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(transactionsJTbl);
 
+        backJBtn.setText("<< Back");
+        backJBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backJBtnActionPerformed(evt);
+            }
+        });
+
+        namejLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        namejLabel.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -69,11 +80,13 @@ public class TransactionsJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backJBtn)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addGap(104, 104, 104)
+                        .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel6)))
+                        .addComponent(namejLabel)))
                 .addContainerGap(271, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -81,22 +94,32 @@ public class TransactionsJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addGap(46, 46, 46)
+                    .addComponent(jLabel6)
+                    .addComponent(namejLabel))
+                .addGap(80, 80, 80)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(417, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(backJBtn)
+                .addContainerGap(318, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backJBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJBtnActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backJBtnActionPerformed
 
     public void refreshtransactionsTable(){
         
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton backJBtn;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel namejLabel;
     private javax.swing.JTable transactionsJTbl;
     // End of variables declaration//GEN-END:variables
 }

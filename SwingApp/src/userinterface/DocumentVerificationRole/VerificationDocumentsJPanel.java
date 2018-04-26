@@ -111,13 +111,13 @@ public class VerificationDocumentsJPanel extends javax.swing.JPanel {
         
         try {
 
-		URL url = new URL("http://127.0.0.1:5000/sendVerify");
+		URL url = new URL("http://aedstock.herokuapp.com/sendVerify");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoOutput(true);
                 
-		String input = "{\"address\":\"gybguyg66g7f\",\"bool\":"+verif+"}";
+		String input = "{\"address\":\""+data+"\",\"bool\":"+verif+"}";
 
 		OutputStream os = conn.getOutputStream();
 		os.write(input.getBytes());

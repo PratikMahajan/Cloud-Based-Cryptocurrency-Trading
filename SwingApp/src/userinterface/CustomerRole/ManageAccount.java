@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +39,10 @@ import org.json.JSONObject;
  *
  * @author mahajan
  */
-public class ManageAccount extends javax.swing.JPanel {
+
+
+
+public class ManageAccount extends javax.swing.JPanel  {
 
     /**
      * Creates new form AddMoney
@@ -47,11 +52,11 @@ public class ManageAccount extends javax.swing.JPanel {
     private CustomerOrganization organization;
     private Enterprise           enterprise;
     private UserAccount          userAccount;
-    
+    private String addr;
     private String imagepath;
     
     
-    public ManageAccount(JPanel userProcessContainer, UserAccount account, CustomerOrganization organization, Enterprise enterprise) throws IOException, JSONException {
+    public ManageAccount(JPanel userProcessContainer, UserAccount account, CustomerOrganization organization, Enterprise enterprise) throws IOException, JSONException, InterruptedException, InvocationTargetException {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
@@ -60,30 +65,46 @@ public class ManageAccount extends javax.swing.JPanel {
         this.userAccount          = account;
         LblName.setText("Welcome "+ userAccount.getEmployee().getFirstName() + " " + userAccount.getEmployee().getLastName());
         
+        addr="adr"+userAccount.getEmployee().getFirstName()+userAccount.getEmployee().getLastName();
+        
+        setInvestments();
         getPrice();
+        postBuyMatch();
+        postSellMatch();
+        
+        
     }
-
     
     
     
-    
-    private void getPrice() throws IOException, JSONException
+    private void postBuyMatch() throws IOException, JSONException
     {
        try {
 
-		URL url = new URL("http://127.0.0.1:5000/dynamicPrice");
+		URL url = new URL("http://aedstock.herokuapp.com/buymatched");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Accept", "application/json");
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+                
+		String input = "{\"address\":\""+addr+"\"}";
 
+		OutputStream os = conn.getOutputStream();
+		os.write(input.getBytes());
+		os.flush();
+                
+                if(conn.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
 		if (conn.getResponseCode() != 200) {
-			throw new RuntimeException("Failed : HTTP error code : "
-					+ conn.getResponseCode());
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn.getResponseCode());
+                        System.out.println("none");
 		}
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 			(conn.getInputStream())));
-
+//
 		String output;
                 output = br.readLine();
 //		while ((output = br.readLine()) != null) {
@@ -91,16 +112,39 @@ public class ManageAccount extends javax.swing.JPanel {
 //		}
                 output = output.replace("[", "").replace("]", "");
                 JSONObject obj = new JSONObject(output);
-                Double price = obj.getDouble("Price");
+                double quant = obj.getDouble("quantity");
 //                System.out.println(firstItem.getInt("id"));
 //                System.out.println(price);
-                String pr=price.toString();
-                lblPriceData.setText(pr.substring(0, Math.min(pr.length(), 7)));
-		Double change= ((price-400.00)/4.00);
-                String chg=change.toString();
-                String changel= chg.substring(0, Math.min(pr.length(), 4));
-                lblChangeData.setText(changel+" %");
+//                String pr=price.toString();
+                double usrcoins= userAccount.getEmployee().getWl().getCoins();
+                userAccount.getEmployee().getWl().setCoins(usrcoins+quant);
+		  
+                setInvestments();
+                
                 conn.disconnect();
+                
+                URL url2 = new URL("http://aedstock.herokuapp.com/delbuy");
+		HttpURLConnection conn2 = (HttpURLConnection) url2.openConnection();
+		conn2.setRequestMethod("POST");
+		conn2.setRequestProperty("Content-Type", "application/json");
+                conn2.setDoOutput(true);
+                
+		String input2 = "{\"address\":\""+addr+"\"}";
+
+		OutputStream os2 = conn2.getOutputStream();
+		os2.write(input2.getBytes());
+		os2.flush();
+                
+                if(conn2.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn2.getResponseCode() != 200) {
+			throw new RuntimeException("Failed : HTTP error code : "
+					+ conn2.getResponseCode());
+		}
+                
+                conn2.disconnect();
+                
 
 	  } catch (MalformedURLException e) {
 
@@ -111,16 +155,116 @@ public class ManageAccount extends javax.swing.JPanel {
 		e.printStackTrace();
 
 	  }
-
-	
+		
 
     }
     
     
+    
+    
+    
+    
+    
+    private void postSellMatch() throws IOException, JSONException
+    {
+       try {
+
+		URL url = new URL("http://aedstock.herokuapp.com/sellmatched");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+                
+		String input = "{\"address\":\""+addr+"\"}";
+
+		OutputStream os = conn.getOutputStream();
+		os.write(input.getBytes());
+		os.flush();
+                
+                if(conn.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn.getResponseCode() != 200) {
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn.getResponseCode());
+                        System.out.println("none");
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+			(conn.getInputStream())));
+//
+		String output;
+                output = br.readLine();
+//		while ((output = br.readLine()) != null) {
+//			System.out.println(output);
+//		}
+                output = output.replace("[", "").replace("]", "");
+                JSONObject obj = new JSONObject(output);
+                double quant = obj.getDouble("quantity");
+//                System.out.println(firstItem.getInt("id"));
+//                System.out.println(price);
+//                String pr=price.toString();
+                double usrcoins= userAccount.getEmployee().getWl().getCoins();
+                userAccount.getEmployee().getWl().setCoins(usrcoins-quant);
+		
+                setInvestments();
+                
+                conn.disconnect();
+                
+                URL url2 = new URL("http://aedstock.herokuapp.com/delsel");
+		HttpURLConnection conn2 = (HttpURLConnection) url2.openConnection();
+		conn2.setRequestMethod("POST");
+		conn2.setRequestProperty("Content-Type", "application/json");
+                conn2.setDoOutput(true);
+                
+		String input2 = "{\"address\":\""+addr+"\"}";
+
+		OutputStream os2 = conn2.getOutputStream();
+		os2.write(input2.getBytes());
+		os2.flush();
+                
+                if(conn2.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn2.getResponseCode() != 200) {
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn2.getResponseCode());
+                        System.out.println("none");
+		}
+                
+                conn2.disconnect();
+                
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+
+	  }
+		
+
+    }
+   
+    
+    
+    private void setInvestments()
+    {
+        double usrcoins= userAccount.getEmployee().getWl().getCoins();
+        double usrdollars=userAccount.getEmployee().getWl().getDollars();
+        
+        lblDollarData.setText(Double.toString(usrdollars));
+        lblCoinData.setText(Double.toString(usrcoins));
+        
+    }
+   
+    
   private void uploadtoS3()
   {
         String bucketName     = "aedprojectvalidate";
-        String keyName        = "demoupload2"; // filename of the file uploaded
+        String keyName        = addr; // filename of the file uploaded
 	String uploadFileName = imagepath; //file to be uploaded from computer
         
         MyAwsCredentials as= new MyAwsCredentials();
@@ -160,8 +304,63 @@ public class ManageAccount extends javax.swing.JPanel {
         
   }
     
+ 
+    private void getPrice() throws IOException, JSONException
+    {
+       try {
+
+//		URL url = new URL("http://127.0.0.1:5000/dynamicPrice");
+                URL url = new URL("http://aedstock.herokuapp.com/dynamicPrice");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Accept", "application/json");
+
+		if (conn.getResponseCode() != 200) {
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn.getResponseCode());
+                        System.out.println("none");
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+			(conn.getInputStream())));
+
+		String output;
+                output = br.readLine();
+//		while ((output = br.readLine()) != null) {
+//			System.out.println(output);
+//		}
+                output = output.replace("[", "").replace("]", "");
+                JSONObject obj = new JSONObject(output);
+                Double price = obj.getDouble("Price");
+//                System.out.println(firstItem.getInt("id"));
+//                System.out.println(price);
+                String pr=price.toString();
+//                stockprice=pr.substring(0, Math.min(pr.length(), 7));
+                lblPriceData.setText(pr.substring(0, Math.min(pr.length(), 7)));
+		Double change= ((price-400.00)/4.00);
+                String chg=change.toString();
+                String changel= chg.substring(0, Math.min(pr.length(), 4));
+                lblChangeData.setText(changel+" %");
+//                changep=changel+" %";
+                conn.disconnect();
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+
+	  }
+
+	
+
     
+        
+        
     
+}
     
     
     
@@ -191,6 +390,7 @@ public class ManageAccount extends javax.swing.JPanel {
         btnSelectImg = new javax.swing.JButton();
         txtSelectedPath = new javax.swing.JTextField();
         btnUpload = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         LblName.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         LblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -263,6 +463,13 @@ public class ManageAccount extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Refresh Feed");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -307,7 +514,8 @@ public class ManageAccount extends javax.swing.JPanel {
                             .addComponent(btnSelectImg)
                             .addGap(18, 18, 18)
                             .addComponent(txtSelectedPath, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,13 +545,18 @@ public class ManageAccount extends javax.swing.JPanel {
                             .addComponent(lblCoinName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCoinData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSelectImg)
-                    .addComponent(txtSelectedPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnUpload)
-                .addGap(127, 127, 127)
-                .addComponent(btnback))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSelectImg)
+                            .addComponent(txtSelectedPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnUpload)
+                        .addGap(127, 127, 127)
+                        .addComponent(btnback))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -369,7 +582,24 @@ public class ManageAccount extends javax.swing.JPanel {
         // TODO add your handling code here:
         uploadtoS3();
         
+        
     }//GEN-LAST:event_btnUploadActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+
+            getPrice();
+            setInvestments();
+            postBuyMatch();
+            postSellMatch();
+        } catch (IOException ex) {
+            Logger.getLogger(ManageAccount.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(ManageAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -377,6 +607,7 @@ public class ManageAccount extends javax.swing.JPanel {
     private javax.swing.JButton btnSelectImg;
     private javax.swing.JButton btnUpload;
     private javax.swing.JButton btnback;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblChangeData;
     private javax.swing.JLabel lblChangeName;
     private javax.swing.JLabel lblCoinData;

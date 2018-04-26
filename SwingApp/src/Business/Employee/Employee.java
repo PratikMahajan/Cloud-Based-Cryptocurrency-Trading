@@ -4,6 +4,9 @@
  */
 package Business.Employee;
 
+import Business.TransactionList;
+import Business.Wallet;
+
 
 public class Employee {
     
@@ -13,10 +16,31 @@ public class Employee {
     private static int count = 1;
     private boolean    verifiedUser = false;
     private String     usraddress;
+    private TransactionList tl;
+    private Wallet wl;
 
     public Employee() {
         id = count;
         count++;
+        tl=new TransactionList();
+        wl=new Wallet();
+    }
+
+    public Wallet getWl() {
+        return wl;
+    }
+
+    public void setWl(Wallet wl) {
+        this.wl = wl;
+    }
+
+    
+    public TransactionList getTl() {
+        return tl;
+    }
+
+    public void setTl(TransactionList tl) {
+        this.tl = tl;
     }
 
     public String getUsraddress() {

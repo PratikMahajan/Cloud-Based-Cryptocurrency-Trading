@@ -36,6 +36,7 @@ public class SellCoins extends javax.swing.JPanel {
     private CustomerOrganization organization;
     private Enterprise           enterprise;
     private UserAccount          userAccount;
+    private String addr;
     
     public SellCoins(JPanel userProcessContainer, UserAccount account, CustomerOrganization organization, Enterprise enterprise) throws IOException, JSONException {
         initComponents();
@@ -44,24 +45,32 @@ public class SellCoins extends javax.swing.JPanel {
         this.organization         = organization;
         this.enterprise           = enterprise;
         this.userAccount          = account;
+<<<<<<< HEAD
         
         LblName.setText("Welcome "+ userAccount.getEmployee().getFirstName() + " " + userAccount.getEmployee().getLastName());
+=======
+        LblName.setText("Sell Coins");
+        
+        addr="adr"+userAccount.getEmployee().getFirstName()+userAccount.getEmployee().getLastName();
+>>>>>>> remotes/origin/Mahajan
         
         getPrice();
+        setInvestments();
     }
 
     
-    private void getSellCoin() throws IOException, JSONException
+     
+    private void postBuyMatch() throws IOException, JSONException
     {
        try {
 
-		URL url = new URL("http://127.0.0.1:5000/sell");
+		URL url = new URL("http://aedstock.herokuapp.com/buymatched");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoOutput(true);
                 
-		String input = "{\"address\":\"gybguyg66g7f\",\"quantity\":100,\"amount\":\"100.2\"}";
+		String input = "{\"address\":\""+addr+"\"}";
 
 		OutputStream os = conn.getOutputStream();
 		os.write(input.getBytes());
@@ -71,8 +80,196 @@ public class SellCoins extends javax.swing.JPanel {
                     System.out.println("Response positive");
                 }
 		if (conn.getResponseCode() != 200) {
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn.getResponseCode());
+                        System.out.println("none");
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+			(conn.getInputStream())));
+//
+		String output;
+                output = br.readLine();
+//		while ((output = br.readLine()) != null) {
+//			System.out.println(output);
+//		}
+                output = output.replace("[", "").replace("]", "");
+                JSONObject obj = new JSONObject(output);
+                double quant = obj.getDouble("quantity");
+//                System.out.println(firstItem.getInt("id"));
+//                System.out.println(price);
+//                String pr=price.toString();
+                double usrcoins= userAccount.getEmployee().getWl().getCoins();
+                userAccount.getEmployee().getWl().setCoins(usrcoins+quant);
+		
+                setInvestments();
+                
+                conn.disconnect();
+                
+                URL url2 = new URL("http://aedstock.herokuapp.com/delbuy");
+		HttpURLConnection conn2 = (HttpURLConnection) url2.openConnection();
+		conn2.setRequestMethod("POST");
+		conn2.setRequestProperty("Content-Type", "application/json");
+                conn2.setDoOutput(true);
+                
+		String input2 = "{\"address\":\""+addr+"\"}";
+
+		OutputStream os2 = conn2.getOutputStream();
+		os2.write(input2.getBytes());
+		os2.flush();
+                
+                if(conn2.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn2.getResponseCode() != 200) {
 			throw new RuntimeException("Failed : HTTP error code : "
-					+ conn.getResponseCode());
+					+ conn2.getResponseCode());
+		}
+                
+                conn2.disconnect();
+                
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+
+	  }
+		
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    private void postSellMatch() throws IOException, JSONException
+    {
+       try {
+
+		URL url = new URL("http://aedstock.herokuapp.com/sellmatched");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+                
+		String input = "{\"address\":\""+addr+"\"}";
+
+		OutputStream os = conn.getOutputStream();
+		os.write(input.getBytes());
+		os.flush();
+                
+                if(conn.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn.getResponseCode() != 200) {
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn.getResponseCode());
+                        System.out.println("none");
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+			(conn.getInputStream())));
+//
+		String output;
+                output = br.readLine();
+//		while ((output = br.readLine()) != null) {
+//			System.out.println(output);
+//		}
+                output = output.replace("[", "").replace("]", "");
+                JSONObject obj = new JSONObject(output);
+                double quant = obj.getDouble("quantity");
+//                System.out.println(firstItem.getInt("id"));
+//                System.out.println(price);
+//                String pr=price.toString();
+                double usrcoins= userAccount.getEmployee().getWl().getCoins();
+                userAccount.getEmployee().getWl().setCoins(usrcoins-quant);
+		
+                setInvestments();
+                
+                conn.disconnect();
+                
+                URL url2 = new URL("http://aedstock.herokuapp.com/delsel");
+		HttpURLConnection conn2 = (HttpURLConnection) url2.openConnection();
+		conn2.setRequestMethod("POST");
+		conn2.setRequestProperty("Content-Type", "application/json");
+                conn2.setDoOutput(true);
+                
+		String input2 = "{\"address\":\""+addr+"\"}";
+
+		OutputStream os2 = conn2.getOutputStream();
+		os2.write(input2.getBytes());
+		os2.flush();
+                
+                if(conn2.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn2.getResponseCode() != 200) {
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn2.getResponseCode());
+                        System.out.println("none");
+		}
+                
+                conn2.disconnect();
+                
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+
+	  }
+		
+
+    }
+   
+   
+    
+     private void setInvestments()
+    {
+        double usrcoins= userAccount.getEmployee().getWl().getCoins();
+        double usrdollars=userAccount.getEmployee().getWl().getDollars();
+        
+        lblDollarData.setText(Double.toString(usrdollars));
+        lblCoinData.setText(Double.toString(usrcoins));
+        
+    }
+    
+    
+    private void getSellCoin() throws IOException, JSONException
+    {
+       try {
+
+		URL url = new URL("http://aedstock.herokuapp.com/sell");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+                
+                int quant=Integer.parseInt(txtQuantity.getText());
+                String amtt=lblPriceData.getText();
+                
+		String input = "{\"address\":\""+addr+"\",\"quantity\":"+quant+",\"amount\":\""+amtt+"\"}";
+
+		OutputStream os = conn.getOutputStream();
+		os.write(input.getBytes());
+		os.flush();
+                
+                if(conn.getResponseCode() == 200){
+                    System.out.println("Response positive");
+                }
+		if (conn.getResponseCode() != 200) {
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn.getResponseCode());
+                        System.out.println("none");
 		}
 
 //		BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -111,7 +308,7 @@ public class SellCoins extends javax.swing.JPanel {
     {
        try {
 
-		URL url = new URL("http://127.0.0.1:5000/dynamicPrice");
+		URL url = new URL("http://aedstock.herokuapp.com/dynamicPrice");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Accept", "application/json");
@@ -180,8 +377,9 @@ public class SellCoins extends javax.swing.JPanel {
         lblDollarData = new javax.swing.JLabel();
         btnback = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtQuantity = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         LblName.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         LblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -242,21 +440,28 @@ public class SellCoins extends javax.swing.JPanel {
 
         jLabel1.setText("Enter Quantity of Coins:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtQuantityActionPerformed(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                txtQuantityKeyTyped(evt);
             }
         });
 
-        jButton1.setText("BUY");
+        jButton1.setText("Sell");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Refresh Feed");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -300,10 +505,13 @@ public class SellCoins extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton1)))
-                        .addGap(0, 630, Short.MAX_VALUE))))
+                        .addGap(0, 630, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,11 +543,12 @@ public class SellCoins extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(btnback)
-                .addGap(166, 166, 166))
+                .addGap(137, 137, 137)
+                .addComponent(jButton2))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -349,15 +558,18 @@ public class SellCoins extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnbackActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantityActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtQuantityActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
 
             getSellCoin();
+            setInvestments();
+            postBuyMatch();
+            postSellMatch();
         } catch (IOException ex) {
             Logger.getLogger(SellCoins.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
@@ -365,22 +577,36 @@ public class SellCoins extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void txtQuantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
         if (!Character.isDigit(c))  //accept only digits
         {
            evt.consume();
         }
-    }//GEN-LAST:event_jTextField1KeyTyped
+    }//GEN-LAST:event_txtQuantityKeyTyped
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            // TODO add your handling code here:
+
+            getPrice();
+        } catch (IOException ex) {
+            Logger.getLogger(SellCoins.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(SellCoins.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LblName;
     private javax.swing.JButton btnback;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblChangeData;
     private javax.swing.JLabel lblChangeName;
     private javax.swing.JLabel lblCoinData;
@@ -391,5 +617,6 @@ public class SellCoins extends javax.swing.JPanel {
     private javax.swing.JLabel lblInvestmentName;
     private javax.swing.JLabel lblPriceData;
     private javax.swing.JLabel lblPriceName;
+    private javax.swing.JTextField txtQuantity;
     // End of variables declaration//GEN-END:variables
 }

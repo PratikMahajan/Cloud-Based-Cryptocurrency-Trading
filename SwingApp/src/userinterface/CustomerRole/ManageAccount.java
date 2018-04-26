@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +39,10 @@ import org.json.JSONObject;
  *
  * @author mahajan
  */
-public class ManageAccount extends javax.swing.JPanel {
+
+
+
+public class ManageAccount extends javax.swing.JPanel  {
 
     /**
      * Creates new form AddMoney
@@ -51,7 +56,7 @@ public class ManageAccount extends javax.swing.JPanel {
     private String imagepath;
     
     
-    public ManageAccount(JPanel userProcessContainer, UserAccount account, CustomerOrganization organization, Enterprise enterprise) throws IOException, JSONException {
+    public ManageAccount(JPanel userProcessContainer, UserAccount account, CustomerOrganization organization, Enterprise enterprise) throws IOException, JSONException, InterruptedException, InvocationTargetException {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
@@ -60,62 +65,23 @@ public class ManageAccount extends javax.swing.JPanel {
         this.userAccount          = account;
         LblName.setText("Welcome");
         
+        setInvestments();
         getPrice();
+        
+        
     }
-
     
     
-    
-    
-    private void getPrice() throws IOException, JSONException
+    private void setInvestments()
     {
-       try {
-
-		URL url = new URL("http://127.0.0.1:5000/dynamicPrice");
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Accept", "application/json");
-
-		if (conn.getResponseCode() != 200) {
-			throw new RuntimeException("Failed : HTTP error code : "
-					+ conn.getResponseCode());
-		}
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-			(conn.getInputStream())));
-
-		String output;
-                output = br.readLine();
-//		while ((output = br.readLine()) != null) {
-//			System.out.println(output);
-//		}
-                output = output.replace("[", "").replace("]", "");
-                JSONObject obj = new JSONObject(output);
-                Double price = obj.getDouble("Price");
-//                System.out.println(firstItem.getInt("id"));
-//                System.out.println(price);
-                String pr=price.toString();
-                lblPriceData.setText(pr.substring(0, Math.min(pr.length(), 7)));
-		Double change= ((price-400.00)/4.00);
-                String chg=change.toString();
-                String changel= chg.substring(0, Math.min(pr.length(), 4));
-                lblChangeData.setText(changel+" %");
-                conn.disconnect();
-
-	  } catch (MalformedURLException e) {
-
-		e.printStackTrace();
-
-	  } catch (IOException e) {
-
-		e.printStackTrace();
-
-	  }
-
-	
-
+        double usrcoins= userAccount.getEmployee().getWl().getCoins();
+        double usrdollars=userAccount.getEmployee().getWl().getDollars();
+        
+        lblDollarData.setText(Double.toString(usrdollars));
+        lblCoinData.setText(Double.toString(usrcoins));
+        
     }
-    
+   
     
   private void uploadtoS3()
   {
@@ -160,8 +126,62 @@ public class ManageAccount extends javax.swing.JPanel {
         
   }
     
+ 
+    private void getPrice() throws IOException, JSONException
+    {
+       try {
+
+//		URL url = new URL("http://127.0.0.1:5000/dynamicPrice");
+                URL url = new URL("http://aedstock.herokuapp.com/dynamicPrice");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Accept", "application/json");
+
+		if (conn.getResponseCode() != 200) {
+			throw new RuntimeException("Failed : HTTP error code : "
+					+ conn.getResponseCode());
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+			(conn.getInputStream())));
+
+		String output;
+                output = br.readLine();
+//		while ((output = br.readLine()) != null) {
+//			System.out.println(output);
+//		}
+                output = output.replace("[", "").replace("]", "");
+                JSONObject obj = new JSONObject(output);
+                Double price = obj.getDouble("Price");
+//                System.out.println(firstItem.getInt("id"));
+//                System.out.println(price);
+                String pr=price.toString();
+//                stockprice=pr.substring(0, Math.min(pr.length(), 7));
+                lblPriceData.setText(pr.substring(0, Math.min(pr.length(), 7)));
+		Double change= ((price-400.00)/4.00);
+                String chg=change.toString();
+                String changel= chg.substring(0, Math.min(pr.length(), 4));
+                lblChangeData.setText(changel+" %");
+//                changep=changel+" %";
+                conn.disconnect();
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+
+	  }
+
+	
+
     
+        
+        
     
+}
     
     
     
@@ -191,6 +211,7 @@ public class ManageAccount extends javax.swing.JPanel {
         btnSelectImg = new javax.swing.JButton();
         txtSelectedPath = new javax.swing.JTextField();
         btnUpload = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         LblName.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         LblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -263,6 +284,13 @@ public class ManageAccount extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Refresh Feed");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -307,7 +335,8 @@ public class ManageAccount extends javax.swing.JPanel {
                             .addComponent(btnSelectImg)
                             .addGap(18, 18, 18)
                             .addComponent(txtSelectedPath, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,13 +366,18 @@ public class ManageAccount extends javax.swing.JPanel {
                             .addComponent(lblCoinName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCoinData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSelectImg)
-                    .addComponent(txtSelectedPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnUpload)
-                .addGap(127, 127, 127)
-                .addComponent(btnback))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSelectImg)
+                            .addComponent(txtSelectedPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnUpload)
+                        .addGap(127, 127, 127)
+                        .addComponent(btnback))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -369,7 +403,22 @@ public class ManageAccount extends javax.swing.JPanel {
         // TODO add your handling code here:
         uploadtoS3();
         
+        
     }//GEN-LAST:event_btnUploadActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+
+            getPrice();
+            setInvestments();
+        } catch (IOException ex) {
+            Logger.getLogger(ManageAccount.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(ManageAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -377,6 +426,7 @@ public class ManageAccount extends javax.swing.JPanel {
     private javax.swing.JButton btnSelectImg;
     private javax.swing.JButton btnUpload;
     private javax.swing.JButton btnback;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblChangeData;
     private javax.swing.JLabel lblChangeName;
     private javax.swing.JLabel lblCoinData;

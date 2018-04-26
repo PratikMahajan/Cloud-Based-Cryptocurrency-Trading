@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,15 +46,26 @@ public class AddMoney extends javax.swing.JPanel {
         LblName.setText("Welcome");
         
         getPrice();
+        setInvestments();
     }
 
+    
+     private void setInvestments()
+    {
+        double usrcoins= userAccount.getEmployee().getWl().getCoins();
+        double usrdollars=userAccount.getEmployee().getWl().getDollars();
+        
+        lblDollarData.setText(Double.toString(usrdollars));
+        lblCoinData.setText(Double.toString(usrcoins));
+        
+    }
     
     
     private void getPrice() throws IOException, JSONException
     {
        try {
 
-		URL url = new URL("http://127.0.0.1:5000/dynamicPrice");
+		URL url = new URL("http://aedstock.herokuapp.com/dynamicPrice");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Accept", "application/json");
@@ -135,6 +148,7 @@ public class AddMoney extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         LblName.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         LblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -249,6 +263,13 @@ public class AddMoney extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
         jLabel8.setText("(3 digit numeric value)*");
 
+        jButton2.setText("Refresh Feed");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -313,6 +334,10 @@ public class AddMoney extends javax.swing.JPanel {
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(339, 339, 339))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,7 +395,8 @@ public class AddMoney extends javax.swing.JPanel {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(btnback)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -427,6 +453,20 @@ public class AddMoney extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cvvjTextFieldKeyTyped
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            // TODO add your handling code here:
+            getPrice();
+            setInvestments();
+        } catch (IOException ex) {
+            Logger.getLogger(AddMoney.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(AddMoney.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LblName;
@@ -434,6 +474,7 @@ public class AddMoney extends javax.swing.JPanel {
     private javax.swing.JTextField creditCardjTextField;
     private javax.swing.JTextField cvvjTextField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

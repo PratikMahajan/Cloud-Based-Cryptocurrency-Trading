@@ -129,7 +129,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
-              <EmptySpace pref="312" max="32767" attributes="0"/>
+              <EmptySpace pref="300" max="32767" attributes="0"/>
               <Component id="DummyDel" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -138,7 +138,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="DummyDel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="DummyDel"/>
+        <Property name="text" type="java.lang.String" value="Refresh Feed"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DummyDelActionPerformed"/>

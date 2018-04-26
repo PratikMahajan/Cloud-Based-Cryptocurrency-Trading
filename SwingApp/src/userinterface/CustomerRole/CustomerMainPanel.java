@@ -13,6 +13,7 @@ import java.awt.CardLayout;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -47,6 +48,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         LblName.setText("Welcome");
         
         getPrice();
+        setInvestments();
         
         //enable buy and sell button only for verified user
         if(userAccount.getEmployee().isVerifiedUser()){
@@ -56,11 +58,23 @@ public class CustomerMainPanel extends javax.swing.JPanel {
     }
 
     
+    
+     private void setInvestments()
+    {
+        double usrcoins= userAccount.getEmployee().getWl().getCoins();
+        double usrdollars=userAccount.getEmployee().getWl().getDollars();
+        
+        lblDollarData.setText(Double.toString(usrdollars));
+        lblCoinData.setText(Double.toString(usrcoins));
+        
+    }
+    
+    
     private void getPrice() throws IOException, JSONException
     {
        try {
 
-		URL url = new URL("http://127.0.0.1:5000/dynamicPrice");
+		URL url = new URL("http://aedstock.herokuapp.com/dynamicPrice");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Accept", "application/json");
@@ -132,7 +146,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         btnSellCoins1 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        DummyDel.setText("DummyDel");
+        DummyDel.setText("Refresh Feed");
         DummyDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DummyDelActionPerformed(evt);
@@ -320,19 +334,29 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                     .addComponent(btnSellCoins1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
                 .addComponent(DummyDel))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void DummyDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DummyDelActionPerformed
-        // TODO add your handling code here:
-        
-        CustomerWorkAreaJPanel cm= new CustomerWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise);
-        userProcessContainer.add("CWAJ",cm);
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
-        
+        try {
+            // TODO add your handling code here:
+            
+            
+            getPrice();
+            setInvestments();
+            
+//        CustomerWorkAreaJPanel cm= new CustomerWorkAreaJPanel(userProcessContainer, userAccount, organization, enterprise);
+//        userProcessContainer.add("CWAJ",cm);
+//        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+//        layout.next(userProcessContainer);
+//        
+        } catch (IOException ex) {
+            Logger.getLogger(CustomerMainPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(CustomerMainPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_DummyDelActionPerformed
 
@@ -403,6 +427,10 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(CustomerMainPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
+            Logger.getLogger(CustomerMainPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) { 
+            Logger.getLogger(CustomerMainPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
             Logger.getLogger(CustomerMainPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         userProcessContainer.add("Manage Account",cm);

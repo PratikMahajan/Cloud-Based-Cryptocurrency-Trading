@@ -103,6 +103,16 @@ public class BuyCoins extends javax.swing.JPanel {
                 double usrcoins= userAccount.getEmployee().getWl().getCoins();
                 userAccount.getEmployee().getWl().setCoins(usrcoins+quant);
 		
+                
+                String seller= obj.getString("recv_from");
+                Transaction trans = userAccount.getEmployee().getTl().addTransaction();
+                trans.setAmount((float)pricesell);
+                trans.setCoinQuantity((float)quant);
+                trans.setSeller(seller);
+                trans.setBuyer(addr);
+                trans.setTransactiondate(new Date().toString());
+                
+                
                 setInvestments();
                 
                 conn.disconnect();
@@ -195,6 +205,16 @@ public class BuyCoins extends javax.swing.JPanel {
                 double usrcoins= userAccount.getEmployee().getWl().getCoins();
                 userAccount.getEmployee().getWl().setCoins(usrcoins-quant);
 		
+                String seller= obj.getString("send_to");
+                Transaction trans = userAccount.getEmployee().getTl().addTransaction();
+                trans.setAmount((float)pricesell);
+                trans.setCoinQuantity((float)quant);
+                trans.setSeller(addr);
+                trans.setBuyer(seller);
+                trans.setTransactiondate(new Date().toString());
+                
+                
+                
                 setInvestments();
                 
                 conn.disconnect();

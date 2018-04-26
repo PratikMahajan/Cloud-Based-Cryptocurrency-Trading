@@ -49,7 +49,7 @@ public class SellCoins extends javax.swing.JPanel {
         LblName.setText("Sell Coins");
         
         addr="adr"+userAccount.getEmployee().getFirstName()+userAccount.getEmployee().getLastName();
-
+          
         
         getPrice();
         setInvestments();

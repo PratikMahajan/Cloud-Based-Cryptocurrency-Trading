@@ -242,6 +242,10 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Employee Created Succesfully", "Success", JOptionPane.INFORMATION_MESSAGE);
         firstNameJTextField.setText("");
         lastNameJTextField.setText("");
+        
+        populateTable(organization);
+        
+        
     }//GEN-LAST:event_addJButtonActionPerformed
 
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed

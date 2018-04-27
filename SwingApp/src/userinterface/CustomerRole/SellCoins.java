@@ -56,6 +56,7 @@ public class SellCoins extends javax.swing.JPanel {
         
         getPrice();
         setInvestments();
+        lblpricediscl.setText("You're Selling Coins at "+lblPriceData.getText()+" $");
     }
 
     

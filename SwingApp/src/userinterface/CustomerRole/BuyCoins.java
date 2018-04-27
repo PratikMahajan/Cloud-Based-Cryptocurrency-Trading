@@ -54,6 +54,7 @@ public class BuyCoins extends javax.swing.JPanel {
         
         getPrice();
         setInvestments();
+        lblpricedescl.setText("You're Buying Coins at "+lblPriceData.getText()+" $");
     }
 
     

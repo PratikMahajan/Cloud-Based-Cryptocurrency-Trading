@@ -600,6 +600,12 @@ public class BuyCoins extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
+            if(  (Double.parseDouble(lblPriceData.getText())) * 
+                 (Double.parseDouble(lblQuantity.getText())) 
+                    >= Double.parseDouble(lblDollarData.getText())){
+            JOptionPane.showMessageDialog(null, "Not enough balance to buy coins!!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+            }
             getBuyCoin();
             JOptionPane.showMessageDialog(null, "Buy money request sent", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {

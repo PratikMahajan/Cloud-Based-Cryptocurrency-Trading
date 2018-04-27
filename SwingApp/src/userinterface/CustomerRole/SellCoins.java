@@ -606,7 +606,10 @@ public class SellCoins extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
-
+            if(Double.parseDouble(lblCoinData.getText())<=0){
+            JOptionPane.showMessageDialog(null, "You don't have enough coins to sell!!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+            }
             getSellCoin();
             setInvestments();
             postBuyMatch();

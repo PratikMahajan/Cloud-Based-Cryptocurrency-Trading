@@ -1,9 +1,3 @@
-/*
- * StockExchangeAdminWorkAreaJPanel.java
- *
- * Created on October 10, 2008, 8:50 AM
- */
-
 package userinterface.StockExchangeAdminRole;
 
 import Business.Enterprise.Enterprise;
@@ -38,6 +32,7 @@ public class StockExchangeAdminWorkAreaJPanel extends javax.swing.JPanel {
         manageOrganizationJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
+        alltransactionsJBtn = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -76,6 +71,14 @@ public class StockExchangeAdminWorkAreaJPanel extends javax.swing.JPanel {
         valueLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         valueLabel.setText("<value>");
         add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 310, -1));
+
+        alltransactionsJBtn.setText("View All Transactions");
+        alltransactionsJBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alltransactionsJBtnActionPerformed(evt);
+            }
+        });
+        add(alltransactionsJBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 160, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
@@ -104,9 +107,18 @@ public class StockExchangeAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageOrganizationJButtonActionPerformed
+
+    private void alltransactionsJBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alltransactionsJBtnActionPerformed
+        // TODO add your handling code here:
+        ViewAllTransactionsJPanel viewAllTransactionsJPanel = new ViewAllTransactionsJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
+        userProcessContainer.add("ViewAllTransactionsJPanel", viewAllTransactionsJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_alltransactionsJBtnActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton alltransactionsJBtn;
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton manageEmployeeJButton;

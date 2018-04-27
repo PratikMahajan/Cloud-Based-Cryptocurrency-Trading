@@ -143,11 +143,11 @@ public class BuyCoins extends javax.swing.JPanel {
 
 	  } catch (MalformedURLException e) {
 
-		e.printStackTrace();
+//		e.printStackTrace();
 
 	  } catch (IOException e) {
 
-		e.printStackTrace();
+//		e.printStackTrace();
 
 	  }
 		
@@ -246,11 +246,11 @@ public class BuyCoins extends javax.swing.JPanel {
 
 	  } catch (MalformedURLException e) {
 
-		e.printStackTrace();
+//		e.printStackTrace();
 
 	  } catch (IOException e) {
 
-		e.printStackTrace();
+//		e.printStackTrace();
 
 	  }
 		
@@ -320,11 +320,11 @@ public class BuyCoins extends javax.swing.JPanel {
 
 	  } catch (MalformedURLException e) {
 
-		e.printStackTrace();
+//		e.printStackTrace();
 
 	  } catch (IOException e) {
 
-		e.printStackTrace();
+//		e.printStackTrace();
 
 	  }
 
@@ -368,11 +368,11 @@ public class BuyCoins extends javax.swing.JPanel {
 
 	  } catch (MalformedURLException e) {
 
-		e.printStackTrace();
+//		e.printStackTrace();
 
 	  } catch (IOException e) {
 
-		e.printStackTrace();
+//		e.printStackTrace();
 
 	  }
 
@@ -534,15 +534,16 @@ public class BuyCoins extends javax.swing.JPanel {
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnback)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblQuantity)))))
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblQuantity))))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(210, 210, 210))
+                .addGap(192, 192, 192))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnback)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,9 +572,9 @@ public class BuyCoins extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblCoinName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCoinData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(lblpricedescl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -581,9 +582,8 @@ public class BuyCoins extends javax.swing.JPanel {
                     .addComponent(lblQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addGap(29, 29, 29)
-                .addComponent(btnback)
-                .addGap(108, 108, 108))
+                .addGap(137, 137, 137)
+                .addComponent(btnback))
         );
     }// </editor-fold>//GEN-END:initComponents
 

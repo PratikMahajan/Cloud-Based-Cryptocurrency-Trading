@@ -22,14 +22,16 @@ public class TransactionsJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Organization organization;
     private Enterprise enterprise;
+    private String addr;
     
-    public TransactionsJPanel(JPanel userProcessContainer, UserAccount userAccount, Organization organization, Enterprise enterprise) {
+    public TransactionsJPanel(JPanel userProcessContainer, UserAccount userAccount, Organization organization, Enterprise enterprise, String addr) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = userAccount;
         this.organization = organization;
         this.enterprise = enterprise;
-        refreshtransactionsTable();
+        this.addr = addr;
+        displayAllTransactions();
         namejLabel.setText("Welcome "+ userAccount.getEmployee().getFirstName() + " " + userAccount.getEmployee().getLastName());
         
     }
@@ -48,6 +50,11 @@ public class TransactionsJPanel extends javax.swing.JPanel {
         transactionsJTbl = new javax.swing.JTable();
         backJBtn = new javax.swing.JButton();
         namejLabel = new javax.swing.JLabel();
+        sellTransactionsJBtn = new javax.swing.JButton();
+        allTransactionsJBtn = new javax.swing.JButton();
+        buyTransactionsJBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        totalAmtJTextField = new javax.swing.JTextField();
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("View Transactions:");
@@ -75,20 +82,58 @@ public class TransactionsJPanel extends javax.swing.JPanel {
         namejLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         namejLabel.setText("jLabel1");
 
+        sellTransactionsJBtn.setText("Display Sell Transactions");
+        sellTransactionsJBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sellTransactionsJBtnActionPerformed(evt);
+            }
+        });
+
+        allTransactionsJBtn.setText("Display All Transactions");
+        allTransactionsJBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allTransactionsJBtnActionPerformed(evt);
+            }
+        });
+
+        buyTransactionsJBtn.setText("Display Buy Transactions");
+        buyTransactionsJBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buyTransactionsJBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Total Amount:");
+
+        totalAmtJTextField.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(backJBtn)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(namejLabel)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(40, 40, 40)
+                        .addComponent(totalAmtJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(backJBtn)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(104, 104, 104)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(namejLabel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(buyTransactionsJBtn)
+                                .addGap(18, 18, 18)
+                                .addComponent(sellTransactionsJBtn)
+                                .addGap(18, 18, 18)
+                                .addComponent(allTransactionsJBtn)))))
                 .addContainerGap(271, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -98,11 +143,20 @@ public class TransactionsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(namejLabel))
-                .addGap(80, 80, 80)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sellTransactionsJBtn)
+                    .addComponent(buyTransactionsJBtn)
+                    .addComponent(allTransactionsJBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(totalAmtJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
                 .addComponent(backJBtn)
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -113,11 +167,60 @@ public class TransactionsJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJBtnActionPerformed
 
-    public void refreshtransactionsTable(){
+    private void buyTransactionsJBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyTransactionsJBtnActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel)transactionsJTbl.getModel();
+        dtm.setRowCount(0);
+        float totalAmount = 0;
+        for(Transaction t: userAccount.getEmployee().getTl().getTransactionList())
+        { 
+             if(t.getBuyer().equals(addr)){
+             Object row[] = new Object[6];
+             row[0] = t.getTransactionId();
+             row[1] = t.getTransactiondate();
+             row[2] = t.getBuyer();
+             row[3] = t.getSeller();
+             row[4] = t.getCoinQuantity();
+             row[5] = t.getAmount();
+             totalAmount+=t.getAmount();
+             dtm.addRow(row);    
+             }
+        }
+        totalAmtJTextField.setText(String.valueOf(totalAmount));
+    }//GEN-LAST:event_buyTransactionsJBtnActionPerformed
+
+    private void sellTransactionsJBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellTransactionsJBtnActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel)transactionsJTbl.getModel();
+        dtm.setRowCount(0);
+        float totalAmount = 0;
+        for(Transaction t: userAccount.getEmployee().getTl().getTransactionList())
+        { 
+             if(t.getSeller().equals(addr)){
+             Object row[] = new Object[6];
+             row[0] = t.getTransactionId();
+             row[1] = t.getTransactiondate();
+             row[2] = t.getBuyer();
+             row[3] = t.getSeller();
+             row[4] = t.getCoinQuantity();
+             row[5] = t.getAmount();
+             totalAmount+=t.getAmount();
+             dtm.addRow(row);    
+             }
+        }
+        totalAmtJTextField.setText(String.valueOf(totalAmount));
+    }//GEN-LAST:event_sellTransactionsJBtnActionPerformed
+
+    private void allTransactionsJBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allTransactionsJBtnActionPerformed
+        // TODO add your handling code here:
+        displayAllTransactions();
+    }//GEN-LAST:event_allTransactionsJBtnActionPerformed
+
+    public void displayAllTransactions(){
         //display list of all transactions for current user
         DefaultTableModel dtm = (DefaultTableModel)transactionsJTbl.getModel();
         dtm.setRowCount(0);
-        
+        float totalAmount = 0;
         for(Transaction t: userAccount.getEmployee().getTl().getTransactionList())
         { 
              Object row[] = new Object[6];
@@ -127,15 +230,22 @@ public class TransactionsJPanel extends javax.swing.JPanel {
              row[3] = t.getSeller();
              row[4] = t.getCoinQuantity();
              row[5] = t.getAmount();
+             totalAmount+=t.getAmount();
              dtm.addRow(row);
         }
+        totalAmtJTextField.setText(String.valueOf(totalAmount));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton allTransactionsJBtn;
     private javax.swing.JButton backJBtn;
+    private javax.swing.JButton buyTransactionsJBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel namejLabel;
+    private javax.swing.JButton sellTransactionsJBtn;
+    private javax.swing.JTextField totalAmtJTextField;
     private javax.swing.JTable transactionsJTbl;
     // End of variables declaration//GEN-END:variables
 }

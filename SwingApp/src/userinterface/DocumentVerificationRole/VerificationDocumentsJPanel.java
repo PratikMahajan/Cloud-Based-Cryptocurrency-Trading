@@ -28,6 +28,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.json.JSONException;
 
@@ -267,7 +268,7 @@ public class VerificationDocumentsJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         setStatus();
-        
+        JOptionPane.showMessageDialog(null, "Verification Status sent", "Success", JOptionPane.INFORMATION_MESSAGE);
         
         
     }//GEN-LAST:event_btnSubmitActionPerformed

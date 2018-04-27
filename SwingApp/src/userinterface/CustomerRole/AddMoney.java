@@ -9,6 +9,7 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.CustomerOrganization;
 import Business.Transaction;
 import Business.UserAccount.UserAccount;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.awt.CardLayout;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,6 +21,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -355,17 +358,19 @@ public class AddMoney extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         creditCardjTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        monthjTextField = new javax.swing.JTextField();
         cvvjTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        addressjTextArea = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        yearjTextField = new javax.swing.JTextField();
 
         LblName.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         LblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -445,7 +450,7 @@ public class AddMoney extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setText("Date :");
+        jLabel3.setText("Expiry Month:");
 
         cvvjTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -465,9 +470,9 @@ public class AddMoney extends javax.swing.JPanel {
 
         jLabel5.setText("Address :");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        addressjTextArea.setColumns(20);
+        addressjTextArea.setRows(5);
+        jScrollPane1.setViewportView(addressjTextArea);
 
         jButton1.setText("Add Money");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -491,6 +496,8 @@ public class AddMoney extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        jLabel9.setText("Expiry Year:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -534,12 +541,16 @@ public class AddMoney extends javax.swing.JPanel {
                                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cvvjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(cvvjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(140, 140, 140)
                                         .addComponent(jLabel8))
-                                    .addComponent(jButton1)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jButton1)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnback))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -548,18 +559,22 @@ public class AddMoney extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(creditCardjTextField)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtamt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtamt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(monthjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel9)
+                                        .addGap(23, 23, 23)
+                                        .addComponent(yearjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(btnback)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(587, 587, 587)
                 .addComponent(jButton2)
-                .addGap(339, 339, 339))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -588,7 +603,9 @@ public class AddMoney extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblCoinName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCoinData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(71, 71, 71)
+                .addGap(31, 31, 31)
+                .addComponent(jButton2)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtamt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -601,7 +618,10 @@ public class AddMoney extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(monthjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -614,11 +634,10 @@ public class AddMoney extends javax.swing.JPanel {
                         .addGap(98, 98, 98))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(btnback)))
+                    .addComponent(jButton1)
+                    .addComponent(btnback))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -694,17 +713,50 @@ public class AddMoney extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
+        if(cvvjTextField.getText().isEmpty() ||
+           creditCardjTextField.getText().isEmpty() ||
+           txtamt.getText().isEmpty() ||
+           monthjTextField.getText().isEmpty() ||
+           yearjTextField.getText().isEmpty() ||
+           addressjTextArea.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please enter all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(creditCardjTextField.getText().length() < 16){
+            JOptionPane.showMessageDialog(null, "Credit card number should be 16 digit long", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(cvvjTextField.getText().length() < 3){
+            JOptionPane.showMessageDialog(null, "CC should be 3 digit long", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(monthjTextField.getText().length() < 2 ||
+           Integer.parseInt(monthjTextField.getText()) >12 || Integer.parseInt(monthjTextField.getText()) == 0) 
+        {
+            JOptionPane.showMessageDialog(null, "Month should be in between 01 and 12", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(yearjTextField.getText().length() < 2 ||
+           Integer.parseInt(yearjTextField.getText()) <18) 
+        {
+            JOptionPane.showMessageDialog(null, "Year should be equal to or greater than 18", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         double addmon= Double.parseDouble(txtamt.getText());
         double prevbal= userAccount.getEmployee().getWl().getDollars();
         userAccount.getEmployee().getWl().setDollars(prevbal+addmon);
-        
-        
+        JOptionPane.showMessageDialog(null, "Money added to wallet", "Success", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LblName;
+    private javax.swing.JTextArea addressjTextArea;
     private javax.swing.JButton btnback;
     private javax.swing.JTextField creditCardjTextField;
     private javax.swing.JTextField cvvjTextField;
@@ -718,9 +770,8 @@ public class AddMoney extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblChangeData;
     private javax.swing.JLabel lblChangeName;
     private javax.swing.JLabel lblCoinData;
@@ -731,6 +782,8 @@ public class AddMoney extends javax.swing.JPanel {
     private javax.swing.JLabel lblInvestmentName;
     private javax.swing.JLabel lblPriceData;
     private javax.swing.JLabel lblPriceName;
+    private javax.swing.JTextField monthjTextField;
     private javax.swing.JTextField txtamt;
+    private javax.swing.JTextField yearjTextField;
     // End of variables declaration//GEN-END:variables
 }

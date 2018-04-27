@@ -17,15 +17,32 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="backJBtn" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="588" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="namejLabel" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="totalAmtJTextField" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="backJBtn" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="588" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="namejLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="buyTransactionsJBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="sellTransactionsJBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="allTransactionsJBtn" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace pref="271" max="32767" attributes="0"/>
@@ -40,11 +57,22 @@
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="namejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="sellTransactionsJBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buyTransactionsJBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="allTransactionsJBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="95" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="totalAmtJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Component id="backJBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="318" max="32767" attributes="0"/>
+              <EmptySpace pref="278" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -132,6 +160,40 @@
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="sellTransactionsJBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Display Sell Transactions"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sellTransactionsJBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="allTransactionsJBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Display All Transactions"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allTransactionsJBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buyTransactionsJBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Display Buy Transactions"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buyTransactionsJBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Total Amount:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="totalAmtJTextField">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import org.json.JSONException;
+import twitter4j.TwitterException;
 import userinterface.CustomerRole.CustomerMainPanel;
 
 
@@ -28,6 +29,9 @@ public class CustomerRole extends Role{
         } catch (IOException ex) {
             Logger.getLogger(CustomerRole.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
+            Logger.getLogger(CustomerRole.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (TwitterException ex) {
             Logger.getLogger(CustomerRole.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

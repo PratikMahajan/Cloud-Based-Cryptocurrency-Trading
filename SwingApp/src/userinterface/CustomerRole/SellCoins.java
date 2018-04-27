@@ -139,8 +139,9 @@ public class SellCoins extends javax.swing.JPanel {
                     System.out.println("Response positive");
                 }
 		if (conn2.getResponseCode() != 200) {
-			throw new RuntimeException("Failed : HTTP error code : "
-					+ conn2.getResponseCode());
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn2.getResponseCode());
+                    System.out.println("none");
 		}
                 
                 conn2.disconnect();
@@ -345,8 +346,9 @@ public class SellCoins extends javax.swing.JPanel {
 		conn.setRequestProperty("Accept", "application/json");
 
 		if (conn.getResponseCode() != 200) {
-			throw new RuntimeException("Failed : HTTP error code : "
-					+ conn.getResponseCode());
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn.getResponseCode());
+                    System.out.println("none");
 		}
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(

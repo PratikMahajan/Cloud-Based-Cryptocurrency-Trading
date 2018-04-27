@@ -138,8 +138,9 @@ public class AddMoney extends javax.swing.JPanel {
                     System.out.println("Response positive");
                 }
 		if (conn2.getResponseCode() != 200) {
-			throw new RuntimeException("Failed : HTTP error code : "
-					+ conn2.getResponseCode());
+//			throw new RuntimeException("Failed : HTTP error code : "
+//					+ conn2.getResponseCode());
+                    System.out.println("none");
 		}
                 
                 conn2.disconnect();

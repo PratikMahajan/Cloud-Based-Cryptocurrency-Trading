@@ -188,7 +188,7 @@ public class TransactionsJPanel extends javax.swing.JPanel {
              row[3] = t.getSeller();
              row[4] = t.getCoinQuantity();
              row[5] = t.getAmount();
-             totalAmount+=t.getAmount();
+             totalAmount+=t.getAmount()*t.getCoinQuantity();
              dtm.addRow(row);    
              }
         }
@@ -210,7 +210,7 @@ public class TransactionsJPanel extends javax.swing.JPanel {
              row[3] = t.getSeller();
              row[4] = t.getCoinQuantity();
              row[5] = t.getAmount();
-             totalAmount+=t.getAmount();
+             totalAmount+=t.getAmount()*t.getCoinQuantity();
              dtm.addRow(row);    
              }
         }

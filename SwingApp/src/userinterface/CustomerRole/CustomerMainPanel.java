@@ -78,8 +78,8 @@ public class CustomerMainPanel extends javax.swing.JPanel {
 
     
     private static AccessToken loadAccessToken(){
-    String token = "***REMOVED***";// load from a persistent store
-    String tokenSecret = "***REMOVED***";// load from a persistent store
+    String token = "********************************************";// set twitter tokens 
+    String tokenSecret = "****************************************";/// set twitter tokens 
     return new AccessToken(token, tokenSecret);
     }
     private void twitterfeed() throws TwitterException
@@ -87,8 +87,8 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         System.out.println("Twitter Feed");
         AccessToken accessToken = loadAccessToken();
         ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.setOAuthConsumerKey("***REMOVED***");
-        builder.setOAuthConsumerSecret("***REMOVED***");
+        builder.setOAuthConsumerKey("*********************");// set twitter tokens 
+        builder.setOAuthConsumerSecret("***************************************");// set twitter tokens 
         Configuration configuration = builder.build();
         TwitterFactory factory = new TwitterFactory(configuration);
         Twitter twitter = factory.getInstance(accessToken);
@@ -425,6 +425,10 @@ public class CustomerMainPanel extends javax.swing.JPanel {
                 if (price==1)
                 {
                    userAccount.getEmployee().setVerifiedUser(true);
+                }
+                else
+                {
+                   userAccount.getEmployee().setVerifiedUser(false);
                 }
 		
                 conn.disconnect();

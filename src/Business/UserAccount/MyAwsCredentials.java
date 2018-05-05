@@ -12,12 +12,14 @@ package Business.UserAccount;
 
 public class MyAwsCredentials {
     
-    private static String AccessKeyID="***********************";
+    private static String AccessKeyID="***********************";   
     private static String SecretAccessKey="****************************";
 
     public static String getAccessKeyID() {
         return AccessKeyID;
     }
+
+    
 
     public static String getSecretAccessKey() {
         return SecretAccessKey;

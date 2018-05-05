@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-/JavaApp/build/
-/SwingApp/build/
-/SwingApp/dist/
-/SwingApp/nbproject/private/
-/depreciatedApp/build/
-/depreciatedApp/nbproject/private/
-=======
+
 # Compiled class file
 *.class
 
@@ -20,11 +13,9 @@
 
 # Package Files #
 *.war
+*.jar
 *.ear
 *.zip
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
->>>>>>> 7ebd48f1271b4d281529ecba797e63f739958a81

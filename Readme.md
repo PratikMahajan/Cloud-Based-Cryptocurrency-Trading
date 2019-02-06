@@ -23,7 +23,7 @@ The frontend is divided into two parts:<br/>
 #### Verification Module:
 Verification admin retrives user documents from AWS S3 and checks if they are authentic. If they are, verifies the user do that user can conduct transactions on the platform.
 
-Verification admin can also unverify the user in future. 
+Verification admin can also unverify the user in future.
 
 #### Customer Module
 An unverified user can only see the current price of the coin and can add money to the wallet. <br/>
@@ -34,3 +34,5 @@ Once verified, the user can do the following tasks
 2. Send BUY request (to buy coins)
 3. Check current price of the coin.
 4. Update Profile and upload new Documents
+
+##### There is an iOS version of this application. See [here](https://github.com/PratikMahajan/iOS-Cryptocurrency-Trading-App)

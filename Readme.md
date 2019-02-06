@@ -35,4 +35,5 @@ Once verified, the user can do the following tasks
 3. Check current price of the coin.
 4. Update Profile and upload new Documents
 
-##### There is an iOS version of this application. See [here](https://github.com/PratikMahajan/iOS-Cryptocurrency-Trading-App)
+
+##### This program is written in Java-Swing, There is an iOS version of this application. See [here](https://github.com/PratikMahajan/iOS-Cryptocurrency-Trading-App)
